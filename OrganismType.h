@@ -1,0 +1,15 @@
+#pragma once
+enum Organisms {
+	HUMAN,
+	WOLF,
+	SHEEP,
+	FOX,
+	TURTLE,
+	ANTELOPE,
+	CYBER_SHEEP,
+	GRASS,
+	SOW_THISTLE,
+	GUARANA,
+	BELLADONNA,
+	SOSNOWSKY
+};

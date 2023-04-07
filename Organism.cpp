@@ -47,16 +47,16 @@ Organism::~Organism() {
 	this->worldPtr[this->coords.getX()][this->coords.getY()] = nullptr;
 }
 
-void OrganismList::add(Organism& organism) {
+void OrganismList::add(Organism* organism) {
 	if (this->head == nullptr) {
-		this->head = new Organism(organism);
+		this->head = organism;
 		return;
 	}
 	Organism* ptr = this->head;
 	while (ptr->next != nullptr) {
 		ptr = ptr->next;
 	}
-	ptr->next = new Organism(organism);
+	ptr->next = organism;
 	ptr->next->prev = ptr;
 }
 

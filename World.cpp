@@ -16,6 +16,7 @@ Organism*** World::getGrid()
 
 Organism* World::getGridPtr(int x, int y)
 {
+	if (x < 0 || x >= n || y < 0 || y >= m) return nullptr;
 	return this->grid[x][y];
 }
 
@@ -27,7 +28,14 @@ void World::drawWorld() {
 
 void World::instanceCreate(Organisms type, int x, int y) {
 	Organism* ptr = getGridPtr(x, y);
+	if (ptr == nullptr) return;
+	switch (type) {
+	case HUMAN: {
+		//ptr = new Human(this->world,new Point(x,y));
+	};
 
+	}
+	this->organisms.add()
 }
 
 World::~World() {

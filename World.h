@@ -3,7 +3,7 @@
 
 class World {
 	int n, m;
-	Organism* organisms;
+	OrganismList organisms;
 	Organism*** grid;
 public:
 	World(int n, int m);

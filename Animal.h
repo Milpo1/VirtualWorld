@@ -2,6 +2,9 @@
 #include "Organism.h"
 
 class Animal :
-    public Organism
-{
+    public Organism {
+public:
+    void action() override;
+    void collision() override;
+    virtual void draw() = 0;
 };

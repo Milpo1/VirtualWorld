@@ -26,7 +26,7 @@ void Point::setCoords(int x, int y)
 	if (y != -1) this->y = y;
 }
 
-Organism::Organism(Organism*** worldPtr, Point coords, int strength, int initiative) {
+/*Organism::Organism(Organism*** worldPtr, Point coords, int strength, int initiative) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
 	this->strength = strength;
@@ -45,14 +45,17 @@ Organism::~Organism() {
 	if (this->next != nullptr) this->next->prev = this->prev;
 	if (this->prev != nullptr) this->prev->next = this->next;
 	this->worldPtr[this->coords.getX()][this->coords.getY()] = nullptr;
-}
+}*/
 
 void OrganismList::add(Organism* organism) {
-	if (this->head == nullptr) {
+	if (organism == nullptr) return;
+	organism->next = nullptr;
+	organism->prev = nullptr;
+	Organism* ptr = this->head;
+	if (ptr == nullptr) {
 		this->head = organism;
 		return;
 	}
-	Organism* ptr = this->head;
 	while (ptr->next != nullptr) {
 		ptr = ptr->next;
 	}

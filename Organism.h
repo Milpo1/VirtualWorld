@@ -1,5 +1,7 @@
 #pragma once
 #include "OrganismType.h"
+class World;
+
 class Point {
 	int x, y;
 public:
@@ -13,23 +15,21 @@ public:
 };
 
 class Organism {
-	Organism*** worldPtr;
-	int strength, initiative;
-	Point coords;
 public:
 	Organism* next, *prev;
-	Organism(Organism*** worldPtr, Point coords, int strength, int initiative);
-	Organism(Organism& organism);
-
-	~Organism();
+	virtual void action() = 0;
+	virtual void collision() = 0;
+	virtual void draw() = 0;
+protected:
+	World* worldPtr;
+	int strength, initiative;
+	Point coords;
 };
 class OrganismList {
 	Organism* head;
 public:
 	OrganismList();
-
-	void add(Organism& organism);
+	void add(Organism* organism);
 
 	~OrganismList();
 };
-

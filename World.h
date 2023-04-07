@@ -1,16 +1,16 @@
 #pragma once
-#include "Organism.h"
-
+#include "Human.h"
+typedef Organism*** Grid;
 class World {
 	int n, m;
 	OrganismList organisms;
-	Organism*** grid;
+	Grid grid;
 public:
 	World(int n, int m);
 
 	// Getters
-	Organism*** getGrid(); 
-	Organism* getGridPtr(int x, int y);
+	Grid getGrid();
+	Organism* getPtrAt(Point& point);
 
 	// Setters
 
@@ -18,6 +18,7 @@ public:
 	void makeTurn();
 	void drawWorld();
 	void instanceCreate(Organisms type, int x, int y);
+	bool isValid(Point& point);
 
 	~World();
 };

@@ -1,5 +1,5 @@
 #pragma once
-enum Organisms {
+enum class Organisms {
 	HUMAN,
 	WOLF,
 	SHEEP,

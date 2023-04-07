@@ -1,5 +1,8 @@
 #pragma once
 #include "Human.h"
+#include "Wolf.h"
+#include "Sheep.h"
+
 typedef Organism*** Grid;
 class World {
 	int n, m;
@@ -10,7 +13,8 @@ public:
 
 	// Getters
 	Grid getGrid();
-	Organism* getPtrAt(Point& point);
+	Organism* getInstanceAt(Point& point);
+	void setInstanceAt(Organism* organism, Point& point);
 
 	// Setters
 
@@ -18,6 +22,7 @@ public:
 	void makeTurn();
 	void drawWorld();
 	void instanceCreate(Organisms type, int x, int y);
+	int moveInstance(Point& source, Point& dest);
 	bool isValid(Point& point);
 
 	~World();

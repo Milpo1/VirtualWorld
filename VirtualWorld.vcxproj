@@ -142,9 +142,10 @@
     <ClInclude Include="Animal.h" />
     <ClInclude Include="Human.h" />
     <ClInclude Include="Organism.h" />
-    <ClInclude Include="Other.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="OrganismType.h" />
+    <ClInclude Include="Sheep.h" />
+    <ClInclude Include="Wolf.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
@@ -152,8 +153,9 @@
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Organism.cpp" />
-    <ClCompile Include="Other.cpp" />
     <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="Sheep.cpp" />
+    <ClCompile Include="Wolf.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

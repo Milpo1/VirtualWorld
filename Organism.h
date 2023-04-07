@@ -1,18 +1,7 @@
 #pragma once
 #include "OrganismType.h"
+#include "Point.h"
 class World;
-
-class Point {
-	int x, y;
-public:
-	Point();
-	Point(int x, int y);
-
-	int getX();
-	int getY();
-
-	void setCoords(int x, int y = -1);
-};
 
 class Organism {
 public:
@@ -32,4 +21,4 @@ public:
 	void add(Organism* organism);
 
 	~OrganismList();
-};
+};	

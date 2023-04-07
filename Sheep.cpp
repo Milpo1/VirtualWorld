@@ -9,5 +9,5 @@ Sheep::Sheep(World* worldPtr, Point& coords)
 }
 void Sheep::draw()
 {
-    // TODO: Add your implementation code here.
+	// TODO: Add your implementation code here.
 }

@@ -144,6 +144,7 @@
     <ClInclude Include="Organism.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="OrganismType.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Sheep.h" />
     <ClInclude Include="Wolf.h" />
     <ClInclude Include="World.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Organism.cpp" />
     <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Sheep.cpp" />
     <ClCompile Include="Wolf.cpp" />
     <ClCompile Include="World.cpp" />

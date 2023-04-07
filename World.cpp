@@ -52,18 +52,18 @@ void World::instanceCreate(Organisms type, int x, int y) {
 	this->organisms.add(ptr);
 }
 
-int World::moveInstance(Point& source, Point& dest)
+Response World::moveInstance(Point& source, Point& dest)
 {
-	if (!isValid(dest)) return;
+	if (!isValid(dest)) return Response::POINT_INVALID;
 	Organism* instanceAtSource = getInstanceAt(source);
 	Organism* instanceAtDest = getInstanceAt(dest);
-	if (instanceAtDest == nullptr) {
-		instanceAtDest = instanceAtSource;
-		instanceAtSource = nullptr;
+	if (instanceAtDest != nullptr) {
+		return Response::COLLISION;
 	}
+	instanceAtDest = instanceAtSource;
+	instanceAtSource = nullptr;
+	return Response::MOVED;
 }
-
-
 
 World::~World() {
 	for (int i = 0; i < m; i++) {

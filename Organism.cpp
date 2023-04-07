@@ -1,30 +1,5 @@
 #include "Organism.h"
 
-Point::Point() {
-	this->x = -1;
-	this->y = -1;
-}
-
-Point::Point(int x, int y) {
-	this->x = x;
-	this->y = y;
-}
-
-int Point::getX()
-{
-	return this->x;
-}
-
-int Point::getY()
-{
-	return this->y;
-}
-
-void Point::setCoords(int x, int y)
-{
-	if (x != -1) this->x = x;
-	if (y != -1) this->y = y;
-}
 
 /*Organism::Organism(Organism*** worldPtr, Point coords, int strength, int initiative) {
 	this->worldPtr = worldPtr;

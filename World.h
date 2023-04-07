@@ -22,7 +22,7 @@ public:
 	void makeTurn();
 	void drawWorld();
 	void instanceCreate(Organisms type, int x, int y);
-	int moveInstance(Point& source, Point& dest);
+	Response moveInstance(Point& source, Point& dest);
 	bool isValid(Point& point);
 
 	~World();

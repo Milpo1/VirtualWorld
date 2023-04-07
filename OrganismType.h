@@ -6,10 +6,15 @@ enum class Organisms {
 	FOX,
 	TURTLE,
 	ANTELOPE,
-	CYBER_SHEEP,
 	GRASS,
+	CYBER_SHEEP,
 	SOW_THISTLE,
 	GUARANA,
 	BELLADONNA,
 	SOSNOWSKY
 };
+enum class Response {
+	POINT_INVALID,
+	MOVED,
+	COLLISION
+};	

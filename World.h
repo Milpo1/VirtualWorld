@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Human.h"
 #include "Wolf.h"
 #include "Sheep.h"
@@ -13,8 +14,8 @@ public:
 
 	// Getters
 	Grid getGrid();
-	Organism* getInstanceAt(Point& point);
-	void setInstanceAt(Organism* organism, Point& point);
+	Organism* getInstanceAt(Point point);
+	void setInstanceAt(Organism* organism, Point point);
 
 	// Setters
 
@@ -22,9 +23,9 @@ public:
 	void makeTurn();
 	void drawWorld();
 	void instanceCreate(Organisms type, int x, int y);
-	Response moveInstance(Point& source, Point& dest);
-	bool isValid(Point& point);
+	Response moveInstance(Point source, Point dest);
+	bool isValid(Point point);
+
 
 	~World();
 };
-

@@ -1,26 +1,9 @@
 #include "Organism.h"
 
-
-/*Organism::Organism(Organism*** worldPtr, Point coords, int strength, int initiative) {
-	this->worldPtr = worldPtr;
-	this->coords = coords;
-	this->strength = strength;
-	this->initiative = initiative;
-	this->next = nullptr;
-	this->prev = nullptr;
+Organisms Organism::getType()
+{
+	return this->type;
 }
-
-Organism::Organism(Organism& organism) {
-	*this = organism;
-	this->next = nullptr;
-	this->prev = nullptr;
-}
-
-Organism::~Organism() {
-	if (this->next != nullptr) this->next->prev = this->prev;
-	if (this->prev != nullptr) this->prev->next = this->next;
-	this->worldPtr[this->coords.getX()][this->coords.getY()] = nullptr;
-}*/
 
 void OrganismList::add(Organism* organism) {
 	if (organism == nullptr) return;

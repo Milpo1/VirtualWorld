@@ -6,6 +6,7 @@ Human::Human(World* worldPtr, Point& coords)
 	this->coords = coords;
 	this->strength = 5;
 	this->initiative = 4;
+	this->type = Organisms::HUMAN;
 }
 
 void Human::draw()

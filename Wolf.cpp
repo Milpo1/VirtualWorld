@@ -4,6 +4,7 @@ Wolf::Wolf(World* worldPtr, Point& coords) {
 	this->coords = coords;
 	this->strength = 9;
 	this->initiative = 5;
+	this->type = Organisms::WOLF;
 }
 void Wolf::draw() {
 	// TODO: Add your implementation code here.

@@ -9,8 +9,10 @@ public:
 	virtual void action() = 0;
 	virtual void collision() = 0;
 	virtual void draw() = 0;
+	Organisms getType();
 protected:
 	World* worldPtr;
+	Organisms type;
 	int strength, initiative;
 	Point coords;
 };

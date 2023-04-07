@@ -157,6 +157,7 @@
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Sheep.cpp" />
+    <ClCompile Include="OrganismType.cpp" />
     <ClCompile Include="Wolf.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>

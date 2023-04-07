@@ -18,3 +18,4 @@ enum class Response {
 	MOVED,
 	COLLISION
 };	
+const char* getNameByType(Organisms type);

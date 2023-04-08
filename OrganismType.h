@@ -1,17 +1,17 @@
 #pragma once
-enum class Organisms {
-	HUMAN,
-	WOLF,
-	SHEEP,
-	FOX,
-	TURTLE,
-	ANTELOPE,
-	GRASS,
-	CYBER_SHEEP,
-	SOW_THISTLE,
-	GUARANA,
-	BELLADONNA,
-	SOSNOWSKY
+enum class Organisms:char {
+	HUMAN = '@',
+	WOLF = 'W',
+	SHEEP = 'o',
+	FOX = 'F',
+	TURTLE = 'T',
+	ANTELOPE = 'L',
+	CYBER_SHEEP = '0',
+	GRASS = '\"',
+	SOW_THISTLE = '%',
+	GUARANA = '*',
+	BELLADONNA = '$',
+	SOSNOWSKY = '#'
 };
 enum class Response {
 	POINT_INVALID,

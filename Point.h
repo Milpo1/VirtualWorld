@@ -4,6 +4,12 @@
 #define BUFFER_SIZE 32
 class Point
 {
+	enum Dir {
+		UP,
+		DOWN,
+		LEFT,
+		RIGHT
+	};
 	int x, y;
 public:
 	Point();

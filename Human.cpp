@@ -11,4 +11,5 @@ Human::Human(World* worldPtr, Point& coords)
 
 void Human::draw()
 {
+	std::cout << (char)this->type;
 }

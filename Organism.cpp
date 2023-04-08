@@ -34,6 +34,11 @@ OrganismList::~OrganismList() {
 	}
 }
 
+Organism* OrganismList::getHead() const
+{
+	return this->head;
+}
+
 void OrganismList::deleteNode(Organism* organism)
 {
 	if (this->head == organism) this->head = organism->next;

@@ -18,8 +18,8 @@ int Point::getY() const {
 }
 
 void Point::setCoords(int x, int y) {
-	if (x != -1) this->x = x;
-	if (y != -1) this->y = y;
+	this->x = x;
+	this->y = y;
 }
 
 std::ostream& operator<<(std::ostream& out, const Point& point) {

@@ -25,6 +25,7 @@ class OrganismList {
 	Organism* head;
 public:
 	OrganismList();
+	Organism* getHead() const;
 	void add(Organism* organism);
 	void deleteNode(Organism* organism);
 	~OrganismList();

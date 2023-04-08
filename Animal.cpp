@@ -11,10 +11,11 @@ void Animal::action() {
 	Response response = this->worldPtr->moveInstance(source, dest);
 	switch (response) {
 	case Response::COLLISION:
+		this->worldPtr->collideInstances(source, dest);
 		break;
 	}
 }
 
-void Animal::collision() {
+void Animal::collision(Fight* fight) {
 
 }

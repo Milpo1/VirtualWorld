@@ -15,7 +15,9 @@ enum class Organisms {
 };
 enum class Response {
 	POINT_INVALID,
+	NULL_SOURCE,
 	MOVED,
-	COLLISION
+	COLLISION,
+	NO_COLLISION
 };	
 const char* getNameByType(Organisms type);

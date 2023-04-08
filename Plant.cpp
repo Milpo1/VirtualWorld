@@ -1,9 +1,7 @@
 #include "Plant.h"
 
-void Plant::action()
-{
+void Plant::action() {
 }
 
-void Plant::collision()
-{
+void Plant::collision(Fight* fight) {
 }

@@ -25,28 +25,9 @@ public:
 	Response moveInstance(Organism* instanceAtSource, Organism* instanceAtDest);
 	Response moveInstance(Point source, Point dest);
 	Response collideInstances(Point source, Point dest);
+	void killInstance(Organism* instance);
 	bool isValid(Point point);
 
 
 	~World();
-};
-
-class Fight {
-	enum Side {
-		ATTACKER,
-		VICTIM,
-		TIE,
-		NEITHER
-	};
-	Side winner;
-	Organism* participant[TIE];
-	int netStrength;
-public:
-	Fight(Organism* attacker, Organism* victim);
-	Side getSide(Organism* participant) const;
-	Side getWinnerSide() const;
-	Organism* getWinner() const;
-	Organism* getLoser() const;
-	void addStrenght(Side side, int strength);
-	bool isComplete();
 };

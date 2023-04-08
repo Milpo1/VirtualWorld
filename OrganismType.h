@@ -18,6 +18,7 @@ enum class Response {
 	NULL_SOURCE,
 	MOVED,
 	COLLISION,
-	NO_COLLISION
+	NO_COLLISION,
+	COLLIDED
 };	
 const char* getNameByType(Organisms type);

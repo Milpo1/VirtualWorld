@@ -17,5 +17,7 @@ void Animal::action() {
 }
 
 void Animal::collision(Fight* fight) {
-
+	if (!fight->isComplete()) return;
+	Fight::Side side = fight->getSide(this);
+	fight->addStrenght(side, this->strength);
 }

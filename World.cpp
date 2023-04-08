@@ -1,6 +1,7 @@
 #include "World.h"
 #include <iostream>
 using namespace std;
+
 World::World(int n, int m) {
 	this->n = n;
 	this->m = m;
@@ -53,15 +54,19 @@ void World::instanceCreate(Organisms type, int x, int y) {
 	this->setInstanceAt(point, ptr);
 	this->organisms.add(ptr);
 }
+
 Response World::moveInstance(Organism* instanceAtSource, Organism* instanceAtDest) {
 	if (instanceAtSource == nullptr) return Response::NULL_SOURCE;
 	if (instanceAtDest != nullptr) return Response::COLLISION;
+
 	cout << "Organism " << getNameByType(instanceAtSource->getType())
 		<< " moved from " << instanceAtSource->coords << " to " << instanceAtDest->coords << endl;
 	setInstanceAt(instanceAtDest->coords, instanceAtSource);
 	setInstanceAt(instanceAtSource->coords, nullptr);
+
 	return Response::MOVED;
 }
+
 Response World::moveInstance(Point source, Point dest) {
 	if (!isValid(dest) || !isValid(source)) return Response::POINT_INVALID;
 	Organism* instanceAtSource = getInstanceAt(source);
@@ -74,54 +79,24 @@ Response World::collideInstances(Point source, Point dest) {
 	Organism* instanceAtSource = getInstanceAt(source);
 	Organism* instanceAtDest = getInstanceAt(dest);
 	if (instanceAtSource == nullptr || instanceAtDest == nullptr) return Response::NO_COLLISION;
+
 	Fight fight(instanceAtSource, instanceAtDest);
 	instanceAtSource->collision(&fight);
 	instanceAtDest->collision(&fight);
-	this->kill(fight.getLoser());
+	this->killInstance(fight.getLoser());
 	this->moveInstance(instanceAtSource,instanceAtDest);
-	return Response();
+
+	return Response::COLLIDED;
 }
 
-Fight::Fight(Organism* attacker, Organism* victim) {
-	this->netStrength = 0;
-	this->winner = Fight::NEITHER;
-	this->participant[ATTACKER] = attacker;
-	this->participant[VICTIM] = victim;
+void World::killInstance(Organism* instance) {
+	this->setInstanceAt(instance->coords, nullptr);
+	this->organisms.deleteNode(instance);
 }
 
-Fight::Side Fight::getSide(Organism* organism) const {
-
-	if (this->participant[ATTACKER] == organism) return ATTACKER;
-	if (this->participant[VICTIM] == organism) return VICTIM;
-	return NEITHER;
-}
-
-Fight::Side Fight::getWinnerSide() const {
-	if (this->winner != NEITHER) return this->winner;
-	if (netStrength >= 0) return ATTACKER;
-	return VICTIM;
-}
-
-Organism* Fight::getWinner() const {
-	return this->participant[getWinnerSide()];
-}
-Organism* Fight::getLoser() const {
-	return this->participant[(getWinnerSide()+1)%TIE];
-}
 World::~World() {
 	for (int i = 0; i < this->n; i++) {
 		delete[] this->grid[i];
 	}
 	delete[] this->grid;
 }
-
-void Fight::addStrenght(Side side, int strength) {
-	if (this->participant[side] == nullptr) return;
-	if (side == ATTACKER) this->netStrength += strength;
-	if (side == VICTIM) this->netStrength -= strength;
-}
-bool Fight::isComplete() {
-	if (this->participant[ATTACKER] == nullptr || this->participant[VICTIM] == nullptr) return false;
-	return true;
-}
-

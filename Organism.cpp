@@ -23,6 +23,7 @@ void OrganismList::add(Organism* organism) {
 
 OrganismList::OrganismList() {
 	this->head = nullptr;
+	this->ptr = nullptr;
 }
 
 OrganismList::~OrganismList() {
@@ -41,10 +42,29 @@ Organism* OrganismList::getHead() const
 
 void OrganismList::deleteNode(Organism* organism)
 {
-	if (this->head == organism) this->head = organism->next;
+	if (this->head == organism) {
+		this->head = organism->next;
+		this->head->prev = nullptr;
+	}
 	if (organism->next != nullptr) organism->next->prev = organism->prev;
 	if (organism->prev != nullptr) organism->prev->next = organism->next;
 	delete organism;
+}
+
+void OrganismList::insertAtPrev(Organism* at, Organism* toBeInserted) {
+	if (at == nullptr || toBeInserted == nullptr) return;
+	toBeInserted->next = nullptr;
+	toBeInserted->prev = nullptr;
+	if (at->prev == nullptr) {
+		at->prev = toBeInserted;
+		this->head = toBeInserted;
+		toBeInserted->next = at;
+		return;
+	}
+	toBeInserted->prev = at->prev;
+	toBeInserted->next = at;
+	at->prev->next = toBeInserted;
+	at->prev = toBeInserted;
 }
 
 Fight::Fight(Organism* attacker, Organism* victim) {
@@ -69,14 +89,16 @@ Fight::Side Fight::getWinnerSide() const {
 }
 
 Organism* Fight::getWinner() const {
+	if (this->winner == TIE) return nullptr;
 	return this->participant[getWinnerSide()];
 }
 
 Organism* Fight::getLoser() const {
-	return this->participant[(getWinnerSide() + 1) % TIE];
+	return this->getEnemy(getWinner());
 }
 
 Organism* Fight::getEnemy(Organism* participant) const {
+	if (participant == nullptr) return nullptr;
 	if (!this->isComplete()) return nullptr;
 
 	return this->participant[(getSide(participant) + 1) % TIE];
@@ -88,8 +110,16 @@ void Fight::addStrenght(Side side, int strength) {
 	if (side == VICTIM) this->netStrength -= strength;
 }
 
+void Fight::setWinner(Side side) {
+	this->winner = side;
+}
+
 bool Fight::isComplete() const {
 	if (this->participant[ATTACKER] == nullptr || this->participant[VICTIM] == nullptr) return false;
 
 	return true;
+}
+
+bool Fight::isReady() const {
+	return (this->winner == TIE && this->isComplete());
 }

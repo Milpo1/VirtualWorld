@@ -27,7 +27,6 @@ public:
 	void makeTurn();
 	void drawWorld();
 	Organism* instanceCreate(Organisms type, int x, int y);
-	Response moveInstance(Organism* instanceAtSource, Organism* instanceAtDest);
 	Response moveInstance(Point source, Point dest);
 	Response collideInstances(Point source, Point dest);
 	void killInstance(Organism* instance);

@@ -20,7 +20,11 @@ void Animal::action() {
 }
 
 void Animal::collision(Fight* fight) {
-	if (!fight->isComplete()) return;
+	if (this->type == fight->getEnemy(this)->getType()) {
+		fight->setWinner(Fight::TIE);
+
+		return;
+	}
 	Fight::Side side = fight->getSide(this);
 	fight->addStrenght(side, this->strength);
 }

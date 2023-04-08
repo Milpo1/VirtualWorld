@@ -1,5 +1,6 @@
 #pragma once
 enum class Organisms:char {
+	EMPTY = ' ',
 	HUMAN = '@',
 	WOLF = 'W',
 	SHEEP = 'o',

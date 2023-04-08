@@ -7,5 +7,5 @@ Wolf::Wolf(World* worldPtr, Point& coords) {
 	this->type = Organisms::WOLF;
 }
 void Wolf::draw() {
-	// TODO: Add your implementation code here.
+	std::cout << (char)this->type;
 }

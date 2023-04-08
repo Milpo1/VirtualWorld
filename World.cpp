@@ -10,7 +10,7 @@ World::World(int n, int m) {
 	this->n = n;
 	this->m = m;
 
-	this->grid = new Organism * *[n];
+	this->grid = new Organism **[n];
 	for (int i = 0; i < n; i++) {
 		this->grid[i] = new Organism * [m];
 		for (int j = 0; j < m; j++) this->grid[i][j] = nullptr;
@@ -44,24 +44,29 @@ void World::setInstanceAt(Point point, Organism* organism)
 }
 
 void World::makeTurn() {
-	if (this->grid == nullptr) return error("Empty grid pointer");
+	if (this->grid == nullptr) return error(EMPTY_GRID_ERR);
 	Organism* ptr = this->organisms.getHead();
-	if (ptr == nullptr) return error("Empty organism list");
+	if (ptr == nullptr) return error(EMPTY_ORG_LIST);
 	while (ptr != nullptr) {
-		ptr->action();
+		if (ptr->prev != nullptr) {
+			if (ptr->prev->getType() == Organisms::EMPTY) {
+				this->organisms.deleteNode(ptr->prev);
+			}
+		}
+		if (ptr->getType() != Organisms::EMPTY) ptr->action();
 		ptr = ptr->next;
 	}
 }
 
 void World::drawWorld() {
-	if (this->grid == nullptr) return error("Empty grid pointer");
+	if (this->grid == nullptr) return error(EMPTY_GRID_ERR);
 	cout << endl;
-	for (int i = 0; i < this->m + 2; i++) cout << HOR_BORDER;
+	for (int i = 0; i < this->n + 2; i++) cout << HOR_BORDER;
 	cout << endl;
-	for (int i = 0; i < this->n; i++) {
+	for (int i = 0; i < this->m; i++) {
 		cout << VER_BORDER;
-		for (int j = 0; j < this->m; j++) {
-			Organism* instance = this->grid[i][j];
+		for (int j = 0; j < this->n; j++) {
+			Organism* instance = this->grid[j][i];
 			if (instance == nullptr) {
 				cout << WORLD_EMPTY;
 				continue;
@@ -71,7 +76,7 @@ void World::drawWorld() {
 		cout << VER_BORDER;
 		cout << endl;
 	}
-	for (int i = 0; i < this->m + 2; i++) cout << HOR_BORDER;
+	for (int i = 0; i < this->n + 2; i++) cout << HOR_BORDER;
 	cout << endl;
 }
 
@@ -82,19 +87,16 @@ Organism* World::instanceCreate(Organisms type, int x, int y) {
 	case Organisms::HUMAN:
 		ptr = new Human(this, point);
 		break;
+	case Organisms::WOLF:
+		ptr = new Wolf(this, point);
 	default:
 		break;
 	}
 	if (ptr == nullptr) return nullptr;
+	if (this->getInstanceAt(point) != nullptr) return nullptr;
 	this->setInstanceAt(point, ptr);
 	this->organisms.add(ptr);
 	return ptr;
-}
-
-Response World::moveInstance(Organism* instanceAtSource, Organism* instanceAtDest) {
-
-
-	return Response::MOVED;
 }
 
 Response World::moveInstance(Point source, Point dest) {
@@ -107,8 +109,7 @@ Response World::moveInstance(Point source, Point dest) {
 	setInstanceAt(dest, instanceAtSource);
 	setInstanceAt(source, nullptr);
 	
-	cout << "Organism " << getNameByType(instanceAtSource->getType())
-		<< " moved from " << source << " to " << dest << endl;
+	cout << MOVE_REPORT;
 	return Response::MOVED;
 }
 
@@ -119,17 +120,24 @@ Response World::collideInstances(Point source, Point dest) {
 	if (instanceAtSource == nullptr || instanceAtDest == nullptr) return Response::NO_COLLISION;
 
 	Fight fight(instanceAtSource, instanceAtDest);
+	cout << ATTACK_REPORT;
 	instanceAtSource->collision(&fight);
 	instanceAtDest->collision(&fight);
-	this->killInstance(fight.getLoser());
-	this->moveInstance(instanceAtSource,instanceAtDest);
+	Organism* loser = fight.getLoser();
+	if (loser == nullptr) {
+		return Response::COLLIDED;
+	}
+	cout << KILL_REPORT;
+	this->killInstance(loser);
+	this->moveInstance(source,dest);
 
 	return Response::COLLIDED;
 }
 
 void World::killInstance(Organism* instance) {
 	this->setInstanceAt(instance->coords, nullptr);
-	this->organisms.deleteNode(instance);
+	instance->type = Organisms::EMPTY;
+	//this->organisms.deleteNode(instance);
 }
 
 World::~World() {

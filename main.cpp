@@ -6,9 +6,12 @@ using namespace std;
 
 int main() {
 	srand((unsigned)time(NULL));
-	World world(50,35);
-	Organism* instance = world.instanceCreate(Organisms::HUMAN, 0, 0);
-	Organism* instance2 = world.instanceCreate(Organisms::HUMAN, 49, 34);
+	World world(7,4);
+	for (int i = 0; i < 6; i++) {
+		for (int j = 0; j < 3; j++) {
+			world.instanceCreate(Organisms::HUMAN, i, j);
+		}
+	}
 	world.drawWorld();
 	while (getchar()) {
 		system("CLS");

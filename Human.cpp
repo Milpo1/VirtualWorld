@@ -13,3 +13,10 @@ void Human::draw()
 {
 	std::cout << (char)this->type;
 }
+
+
+
+
+
+
+

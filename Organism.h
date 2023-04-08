@@ -24,10 +24,12 @@ public:
 class OrganismList {
 	Organism* head;
 public:
+	Organism* ptr;
 	OrganismList();
 	Organism* getHead() const;
 	void add(Organism* organism);
 	void deleteNode(Organism* organism);
+	void insertAtPrev(Organism* at, Organism* toBeInserted);
 	~OrganismList();
 };	
 
@@ -51,6 +53,8 @@ public:
 	Side getWinnerSide() const;
 	Organism* getWinner() const;
 	Organism* getLoser() const;
+	void setWinner(Side side);
 	void addStrenght(Side side, int strength);
 	bool isComplete() const;
+	bool isReady() const;
 };

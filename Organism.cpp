@@ -1,13 +1,23 @@
 #include "Organism.h"
 
-Organisms Organism::getType()
-{
+Organisms Organism::getType() const {
 	return this->type;
 }
 
-Point& Organism::getCoords()
-{
+Point& Organism::getCoords() {
 	return this->coords;
+}
+
+int Organism::getStrength() const {
+	return this->strength;
+}
+
+int Organism::getInitiative() const {
+	return this->initiative;
+}
+
+void Organism::setStrength(int strength)  {
+	this->strength = strength;
 }
 
 void OrganismList::add(Organism* organism) {
@@ -40,8 +50,7 @@ OrganismList::~OrganismList() {
 	}
 }
 
-Organism* OrganismList::getHead() const
-{
+Organism* OrganismList::getHead() const {
 	return this->head;
 }
 

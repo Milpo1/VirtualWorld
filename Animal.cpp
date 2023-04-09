@@ -1,6 +1,5 @@
 #include "Animal.h"
 #include "World.h"
-
 void Animal::action() {
 	Point source = this->coords;
 	Point dest = this->worldPtr->getAvaibleField(source, ALLOW_TAKEN_FIELDS);
@@ -13,6 +12,12 @@ void Animal::action() {
 }
 
 void Animal::collision(Fight* fight) {
+	this->mating(fight);
+	Fight::Side side = fight->getSide(this);
+	fight->addStrenght(side, this->strength);
+}
+
+void Animal::mating(Fight* fight) {
 	if (this->type == fight->getEnemy(this)->getType()) {
 		if (fight->getWinnerSide() == Fight::TIE) {
 			Point avaibleField = this->worldPtr->getAvaibleField(this->coords, FORBID_TAKEN_FIELDS);
@@ -29,6 +34,4 @@ void Animal::collision(Fight* fight) {
 		fight->setWinner(Fight::TIE);
 		return;
 	}
-	Fight::Side side = fight->getSide(this);
-	fight->addStrenght(side, this->strength);
 }

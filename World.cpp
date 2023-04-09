@@ -109,6 +109,37 @@ Organism* World::instanceCreate(Organisms type, int x, int y, Flag flag) {
 		break;
 	case Organisms::WOLF:
 		ptr = new Wolf(this, point);
+		break;
+	case Organisms::SHEEP:
+		ptr = new Sheep(this, point);
+		break;
+	case Organisms::FOX:
+		ptr = new Fox(this, point);
+		break;
+	case Organisms::TURTLE:
+		ptr = new Turtle(this, point);
+		break;
+	case Organisms::ANTELOPE:
+		ptr = new Antelope(this, point);
+		break;
+	case Organisms::CYBER_SHEEP:
+		ptr = new Cybersheep(this, point);
+		break;
+	case Organisms::GRASS:
+		ptr = new Grass(this, point);
+		break;
+	case Organisms::SOW_THISTLE:
+		ptr = new SowThistle(this, point);
+		break;
+	case Organisms::GUARANA:
+		ptr = new Guarana(this, point);
+		break;
+	case Organisms::BELLADONNA:
+		ptr = new Belladonna(this, point);
+		break;
+	case Organisms::SOSNOWSKY:
+		ptr = new Sosnowsky(this, point);
+		break;
 	default:
 		break;
 	}
@@ -141,7 +172,7 @@ Response World::collideInstances(Point source, Point dest) {
 	if (instanceAtSource == nullptr || instanceAtDest == nullptr) return Response::NO_COLLISION;
 
 	Fight fight(instanceAtSource, instanceAtDest);
-	//cout << ATTACK_REPORT;
+	cout << ATTACK_REPORT;
 	instanceAtSource->collision(&fight);
 	instanceAtDest->collision(&fight);
 	Organism* loser = fight.getLoser();

@@ -42,6 +42,33 @@
     <ClInclude Include="Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Fox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Turtle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Antelope.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cybersheep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SowThistle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Guarana.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Belladonna.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sosnowsky.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="World.cpp">
@@ -72,6 +99,33 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OrganismType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Turtle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Antelope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cybersheep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SowThistle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Guarana.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Belladonna.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sosnowsky.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

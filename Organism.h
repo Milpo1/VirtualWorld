@@ -20,8 +20,11 @@ public:
 	virtual void action() = 0;
 	virtual void collision(Fight* fight) = 0;
 	virtual void draw() = 0;
-	Organisms getType();
+	Organisms getType() const;
 	Point& getCoords();
+	int getStrength() const;
+	int getInitiative() const;
+	void setStrength(int strength);
 };
 class OrganismList {
 	Organism* head;

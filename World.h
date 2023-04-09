@@ -3,6 +3,16 @@
 #include "Human.h"
 #include "Wolf.h"
 #include "Sheep.h"
+#include "Fox.h"
+#include "Turtle.h"
+#include "Antelope.h"
+#include "Cybersheep.h"
+#include "Grass.h"
+#include "SowThistle.h"
+#include "Guarana.h"
+#include "Belladonna.h"
+#include "Guarana.h"
+#include "Sosnowsky.h"
 
 #define WORLD_EMPTY '.'
 #define HOR_BORDER '|'
@@ -16,8 +26,6 @@ class World {
 	int n, m;
 	OrganismList organisms;
 	Grid grid;
-	Organism* getInstanceAt(Point point);
-	void setInstanceAt(Point point, Organism* organism);
 public:
 	Point* dirVectors;
 	World(int n, int m);
@@ -29,6 +37,8 @@ public:
 	// Other
 	void makeTurn();
 	void drawWorld();
+	void setInstanceAt(Point point, Organism* organism);
+	Organism* getInstanceAt(Point point);
 	Organism* instanceCreate(Organisms type, int x, int y, Flag flag = Flag::ADULT);
 	Response moveInstance(Point source, Point dest);
 	Response collideInstances(Point source, Point dest);

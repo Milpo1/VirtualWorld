@@ -6,5 +6,6 @@ class Animal :
 public:
     void action() override;
     void collision(Fight* fight) override;
-    void draw() = 0;
+    void mating(Fight* fight);
+    //void draw() = 0;
 };

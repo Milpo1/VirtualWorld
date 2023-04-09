@@ -5,6 +5,7 @@ class Human :
 
 public:
 	Human(World* worldPtr, Point& coords);
+	void action() override;
 	void draw() override;
 };
 

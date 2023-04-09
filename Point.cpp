@@ -45,6 +45,14 @@ Point Point::operator*(int scale) {
 	return Point(this->x*scale,this->y*scale);
 }
 
+Point Point::getEmptyPoint() {
+	return Point();
+}
+
+bool Point::operator==(Point& right) {
+	return (this->x == right.x && this->y == right.y);
+}
+
 int intRandRange(int min, int max) {
 	return rand() % (max - min + 1) + min;
 }

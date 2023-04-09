@@ -11,6 +11,7 @@ protected:
 	Organisms type;
 	int strength, initiative;
 	Point coords;
+	Flag flag;
 public:
 	friend class World;
 	friend class Fight;
@@ -20,6 +21,7 @@ public:
 	virtual void collision(Fight* fight) = 0;
 	virtual void draw() = 0;
 	Organisms getType();
+	Point& getCoords();
 };
 class OrganismList {
 	Organism* head;
@@ -30,6 +32,7 @@ public:
 	void add(Organism* organism);
 	void deleteNode(Organism* organism);
 	void insertAtPrev(Organism* at, Organism* toBeInserted);
+	void insertAtNext(Organism* at, Organism* toBeInserted);
 	~OrganismList();
 };	
 

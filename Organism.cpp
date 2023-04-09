@@ -5,6 +5,11 @@ Organisms Organism::getType()
 	return this->type;
 }
 
+Point& Organism::getCoords()
+{
+	return this->coords;
+}
+
 void OrganismList::add(Organism* organism) {
 	if (organism == nullptr) return;
 	organism->next = nullptr;
@@ -65,6 +70,20 @@ void OrganismList::insertAtPrev(Organism* at, Organism* toBeInserted) {
 	toBeInserted->next = at;
 	at->prev->next = toBeInserted;
 	at->prev = toBeInserted;
+}
+void OrganismList::insertAtNext(Organism* at, Organism* toBeInserted) {
+	if (at == nullptr || toBeInserted == nullptr) return;
+	toBeInserted->next = nullptr;
+	toBeInserted->prev = nullptr;
+	if (at->next == nullptr) {
+		at->next = toBeInserted;
+		toBeInserted->prev = at;
+		return;
+	}
+	toBeInserted->next = at->next;
+	toBeInserted->prev = at;
+	at->next->prev = toBeInserted;
+	at->next = toBeInserted;
 }
 
 Fight::Fight(Organism* attacker, Organism* victim) {

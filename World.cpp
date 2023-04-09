@@ -49,13 +49,16 @@ void World::makeTurn() {
 	if (ptr == nullptr) return error(EMPTY_ORG_LIST);
 	while (ptr != nullptr) {
 		if (ptr->prev != nullptr) {
-			if (ptr->prev->getType() == Organisms::EMPTY) {
+			if (ptr->prev->flag == Flag::EMPTY) {
 				this->organisms.deleteNode(ptr->prev);
 			}
 		}
-		if (ptr->getType() != Organisms::EMPTY) ptr->action();
+		if (ptr->flag == Flag::NEWBORN) {
+			ptr->flag = Flag::ADULT;
+		}
+		else if (ptr->flag != Flag::EMPTY) ptr->action();
 		ptr = ptr->next;
-	}
+	}	
 }
 
 void World::drawWorld() {
@@ -80,7 +83,24 @@ void World::drawWorld() {
 	cout << endl;
 }
 
-Organism* World::instanceCreate(Organisms type, int x, int y) {
+Point World::getAvaibleField(Point& source, bool allowTaken) {
+	Point vectors[NO_DIR_VECTORS];
+	Point dest;
+	int avaibleFields = 0;
+	for (int i = 0; i < 4; i++) {
+		dest = source + this->dirVectors[i];
+		if (this->isValid(dest) && (allowTaken || this->getInstanceAt(dest) == nullptr)) {
+			vectors[avaibleFields++] = this->dirVectors[i];
+		}
+	}
+	if (avaibleFields == 0) {
+		return Point();
+	}
+	dest = source + vectors[intRandRange(0, avaibleFields - 1)];
+	return dest;
+}
+
+Organism* World::instanceCreate(Organisms type, int x, int y, Flag flag) {
 	Point point(x, y);
 	Organism* ptr = nullptr;
 	switch (type) {
@@ -96,6 +116,7 @@ Organism* World::instanceCreate(Organisms type, int x, int y) {
 	if (this->getInstanceAt(point) != nullptr) return nullptr;
 	this->setInstanceAt(point, ptr);
 	this->organisms.add(ptr);
+	ptr->flag = flag;
 	return ptr;
 }
 
@@ -109,7 +130,7 @@ Response World::moveInstance(Point source, Point dest) {
 	setInstanceAt(dest, instanceAtSource);
 	setInstanceAt(source, nullptr);
 	
-	cout << MOVE_REPORT;
+	//cout << MOVE_REPORT;
 	return Response::MOVED;
 }
 
@@ -120,7 +141,7 @@ Response World::collideInstances(Point source, Point dest) {
 	if (instanceAtSource == nullptr || instanceAtDest == nullptr) return Response::NO_COLLISION;
 
 	Fight fight(instanceAtSource, instanceAtDest);
-	cout << ATTACK_REPORT;
+	//cout << ATTACK_REPORT;
 	instanceAtSource->collision(&fight);
 	instanceAtDest->collision(&fight);
 	Organism* loser = fight.getLoser();
@@ -136,7 +157,7 @@ Response World::collideInstances(Point source, Point dest) {
 
 void World::killInstance(Organism* instance) {
 	this->setInstanceAt(instance->coords, nullptr);
-	instance->type = Organisms::EMPTY;
+	instance->flag = Flag::EMPTY;
 	//this->organisms.deleteNode(instance);
 }
 

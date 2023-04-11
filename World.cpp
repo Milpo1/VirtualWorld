@@ -9,6 +9,7 @@ void error(const char* message) {
 World::World(int n, int m) {
 	this->n = n;
 	this->m = m;
+	this->turnCounter = 0;
 
 	this->grid = new Organism **[n];
 	for (int i = 0; i < n; i++) {
@@ -43,7 +44,9 @@ void World::setInstanceAt(Point point, Organism* organism)
 	this->grid[point.getX()][point.getY()] = organism;
 }
 
-void World::makeTurn() {
+void World::makeTurn(int c) {
+	this->input = c;
+	this->turnCounter++;
 	if (this->grid == nullptr) return error(EMPTY_GRID_ERR);
 	Organism* ptr = this->organisms.getHead();
 	if (ptr == nullptr) return error(EMPTY_ORG_LIST);
@@ -64,6 +67,7 @@ void World::makeTurn() {
 void World::drawWorld() {
 	if (this->grid == nullptr) return error(EMPTY_GRID_ERR);
 	cout << endl;
+	cout << "Turn " << this->turnCounter << endl;
 	for (int i = 0; i < this->n + 2; i++) cout << HOR_BORDER;
 	cout << endl;
 	for (int i = 0; i < this->m; i++) {
@@ -172,14 +176,13 @@ Response World::collideInstances(Point source, Point dest) {
 	if (instanceAtSource == nullptr || instanceAtDest == nullptr) return Response::NO_COLLISION;
 
 	Fight fight(instanceAtSource, instanceAtDest);
-	cout << ATTACK_REPORT;
+	//cout << ATTACK_REPORT;
 	instanceAtSource->collision(&fight);
 	instanceAtDest->collision(&fight);
 	Organism* loser = fight.getLoser();
 	if (loser == nullptr) {
 		return Response::COLLIDED;
 	}
-	cout << KILL_REPORT;
 	this->killInstance(loser);
 	this->moveInstance(source,dest);
 
@@ -188,6 +191,7 @@ Response World::collideInstances(Point source, Point dest) {
 
 void World::killInstance(Organism* instance) {
 	this->setInstanceAt(instance->coords, nullptr);
+	instance->killMsg();
 	instance->flag = Flag::EMPTY;
 	//this->organisms.deleteNode(instance);
 }
@@ -201,9 +205,17 @@ World::~World() {
 }
 
 Organism* World::getClosestInstanceByType(Point source, Organisms type) {
+	Organism* result = nullptr;
 	Organism* ptr = this->organisms.getHead();
+	int destInitiative = getInitiativeByType(type);
+	int minDistance = this->n + this->m;
 	while (ptr != nullptr) {
-		if (ptr) {}
+		if (ptr->getInitiative() > destInitiative) break;
+		if (ptr->getType() != type) continue;
+		int distance = pointDistance(ptr->getCoords(), source);
+		if (distance > minDistance) continue;
+		minDistance = distance;
+		result = ptr;
 	}
-	return ptr;
+	return result;
 }

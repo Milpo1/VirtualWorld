@@ -7,5 +7,5 @@ public:
     void action() override;
     void collision(Fight* fight) override;
     void mating(Fight* fight);
-    //void draw() = 0;
+    void killMsg();
 };

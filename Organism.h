@@ -20,6 +20,7 @@ public:
 	virtual void action() = 0;
 	virtual void collision(Fight* fight) = 0;
 	virtual void draw() = 0;
+	virtual void killMsg() = 0;
 	Organisms getType() const;
 	Point& getCoords();
 	int getStrength() const;
@@ -29,7 +30,6 @@ public:
 class OrganismList {
 	Organism* head;
 public:
-	Organism* ptr;
 	OrganismList();
 	Organism* getHead() const;
 	void add(Organism* organism);

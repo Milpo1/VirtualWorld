@@ -30,6 +30,10 @@ void OrganismList::add(Organism* organism) {
 		return;
 	}
 	while (ptr->next != nullptr) {
+		if (ptr->next->getInitiative() < organism->getInitiative()) {
+			this->insertAtNext(ptr,organism);
+			return;
+		}
 		ptr = ptr->next;
 	}
 	ptr->next = organism;
@@ -38,7 +42,6 @@ void OrganismList::add(Organism* organism) {
 
 OrganismList::OrganismList() {
 	this->head = nullptr;
-	this->ptr = nullptr;
 }
 
 OrganismList::~OrganismList() {

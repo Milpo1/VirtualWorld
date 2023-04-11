@@ -35,3 +35,7 @@ void Animal::mating(Fight* fight) {
 		return;
 	}
 }
+
+void Animal::killMsg() {
+	std::cout << KILL_REPORT;
+}	

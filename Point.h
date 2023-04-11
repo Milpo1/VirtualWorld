@@ -31,3 +31,4 @@ std::ostream& operator<<(std::ostream& out, const Point& point);
 int intRandRange(int min, int max);
 ///Randomly chooses one of the arguments. 0 or 1 by default
 int chooseRand(int a = 0, int b = 1);
+int pointDistance(Point& a, Point& b);

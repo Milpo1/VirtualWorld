@@ -14,6 +14,7 @@ enum class Organisms : char {
 	SOSNOWSKY = '#'
 };
 enum class Strength {
+	NONE = 0,
 	HUMAN = 5,
 	WOLF = 9,
 	SHEEP = 4,
@@ -28,6 +29,7 @@ enum class Strength {
 	SOSNOWSKY = 10
 };
 enum class Initiative {
+	NONE = 0,
 	HUMAN = 4,
 	WOLF = 5,
 	SHEEP = 4,
@@ -55,11 +57,14 @@ enum class Flag {
 	EMPTY
 };
 const char* getNameByType(Organisms type);
-
+int getStrengthByType(Organisms type);
+int getInitiativeByType(Organisms type);
 /// Text pack
 #define EMPTY_GRID_ERR "Empty grid pointer"
 #define EMPTY_ORG_LIST "Empty organism list"
 #define MOVE_REPORT getNameByType(instanceAtSource->getType()) << " moved from " << source << " to " << dest << endl
-#define KILL_REPORT '\t' << getNameByType(loser->getType()) << " " << loser->coords << " gets killed!" << endl
+#define KILL_REPORT '\t' << getNameByType(this->getType()) << " " << this->coords << " gets killed!" << std::endl
+#define EAT_REPORT '\t' << getNameByType(this->getType()) << " " << this->coords << " gets eaten!" << std::endl
 #define ATTACK_REPORT getNameByType(instanceAtSource->getType()) << " " << source << " colllides " << getNameByType(instanceAtDest->getType()) << " " << dest << "!\n"
 #define MATING_REPORT '\t' << getNameByType(this->type) << " " << avaibleField << " was born!\n"
+#define GROW_REPORT '\t' << getNameByType(this->type) << " " << avaibleField << " has grown!\n"

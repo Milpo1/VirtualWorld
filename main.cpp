@@ -1,12 +1,16 @@
 #include <iostream>
 #include <stdlib.h>
+#include <conio.h>
 #include "World.h"
+
+
 
 using namespace std;
 
 int main() {
 	srand((unsigned)time(NULL));
-	World world(50,20);
+	World world(75,40);
+	world.instanceCreate(Organisms::HUMAN, 15, 20);
 	for (int i = 2; i < 10; i+=2) {
 		for (int j = 2; j < 3; j++) {
 			world.instanceCreate(Organisms::FOX, i, j);
@@ -23,10 +27,16 @@ int main() {
 		}
 	}
 	world.drawWorld();
-	while (getchar()) {
+
+	int c = _getch();
+	while (true) {
+		while (c != 224) {
+			c = _getch();
+		}
 		system("CLS");
-		world.makeTurn();
+		world.makeTurn(c);
 		world.drawWorld();
+		c = 0;
 	}
 	return 0;
 }

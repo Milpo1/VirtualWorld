@@ -60,3 +60,7 @@ int intRandRange(int min, int max) {
 int chooseRand(int a, int b) {
 	return intRandRange(0, 1) == 1 ? b : a;
 }
+
+int pointDistance(Point& a, Point& b) {
+	return abs(a.getX() - b.getX()) + abs(a.getY() - b.getY());
+}

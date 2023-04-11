@@ -3,8 +3,8 @@
 SowThistle::SowThistle(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 0;
-	this->initiative = 0;
+	this->strength = (int)Strength::SOW_THISTLE;
+	this->initiative = (int)Initiative::SOW_THISTLE;
 	this->type = Organisms::SOW_THISTLE;
 	this->flag = Flag::ADULT;
 }

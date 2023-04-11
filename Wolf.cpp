@@ -2,8 +2,8 @@
 Wolf::Wolf(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 9;
-	this->initiative = 5;
+	this->strength = (int)Strength::WOLF;
+	this->initiative = (int)Initiative::WOLF;
 	this->type = Organisms::WOLF;
 	this->flag = Flag::ADULT;
 }

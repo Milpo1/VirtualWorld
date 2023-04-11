@@ -39,6 +39,7 @@ public:
 	void drawWorld();
 	void setInstanceAt(Point point, Organism* organism);
 	Organism* getInstanceAt(Point point);
+	Organism* getClosestInstanceByType(Point source, Organisms type);
 	Organism* instanceCreate(Organisms type, int x, int y, Flag flag = Flag::ADULT);
 	Response moveInstance(Point source, Point dest);
 	Response collideInstances(Point source, Point dest);

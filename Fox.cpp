@@ -4,8 +4,8 @@
 Fox::Fox(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 3;
-	this->initiative = 7;
+	this->strength = (int)Strength::FOX;
+	this->initiative = (int)Initiative::FOX;
 	this->type = Organisms::FOX;
 	this->flag = Flag::ADULT;
 }

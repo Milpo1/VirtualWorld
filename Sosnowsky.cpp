@@ -4,8 +4,8 @@
 Sosnowsky::Sosnowsky(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 10;
-	this->initiative = 0;
+	this->strength = (int)Strength::SOSNOWSKY;
+	this->initiative = (int)Initiative::SOSNOWSKY;
 	this->type = Organisms::SOSNOWSKY;
 	this->flag = Flag::ADULT;
 }

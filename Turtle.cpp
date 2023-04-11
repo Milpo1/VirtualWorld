@@ -4,8 +4,8 @@
 Turtle::Turtle(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 2;
-	this->initiative = 1;
+	this->strength = (int)Strength::TURTLE;
+	this->initiative = (int)Initiative::TURTLE;
 	this->type = Organisms::TURTLE;
 	this->flag = Flag::ADULT;
 }

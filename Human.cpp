@@ -4,8 +4,8 @@ Human::Human(World* worldPtr, Point& coords)
 {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 5;
-	this->initiative = 4;
+	this->strength = (int)Strength::HUMAN;
+	this->initiative = (int)Initiative::HUMAN;
 	this->type = Organisms::HUMAN;
 	this->flag = Flag::ADULT;
 }

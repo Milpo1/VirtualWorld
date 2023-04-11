@@ -1,5 +1,5 @@
 #pragma once
-enum class Organisms:char {
+enum class Organisms : char {
 	HUMAN = '@',
 	WOLF = 'W',
 	SHEEP = 'o',
@@ -12,6 +12,34 @@ enum class Organisms:char {
 	GUARANA = '*',
 	BELLADONNA = '$',
 	SOSNOWSKY = '#'
+};
+enum class Strength {
+	HUMAN = 5,
+	WOLF = 9,
+	SHEEP = 4,
+	FOX = 3,
+	TURTLE = 2,
+	ANTELOPE = 4,
+	CYBER_SHEEP = 11,
+	GRASS = 0,
+	SOW_THISTLE = 0,
+	GUARANA = 0,
+	BELLADONNA = 99,
+	SOSNOWSKY = 10
+};
+enum class Initiative {
+	HUMAN = 4,
+	WOLF = 5,
+	SHEEP = 4,
+	FOX = 7,
+	TURTLE = 1,
+	ANTELOPE = 4,
+	CYBER_SHEEP = 4,
+	GRASS = 0,
+	SOW_THISTLE = 0,
+	GUARANA = 0,
+	BELLADONNA = 0,
+	SOSNOWSKY = 0
 };
 enum class Response {
 	POINT_INVALID,

@@ -2,8 +2,8 @@
 Antelope::Antelope(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 4;
-	this->initiative = 4;
+	this->strength = (int)Strength::ANTELOPE;
+	this->initiative = (int)Initiative::ANTELOPE;
 	this->type = Organisms::ANTELOPE;
 	this->flag = Flag::ADULT;
 }

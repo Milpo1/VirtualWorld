@@ -3,8 +3,8 @@
 Belladonna::Belladonna(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 99;
-	this->initiative = 0;
+	this->strength = (int)Strength::BELLADONNA;
+	this->initiative = (int)Initiative::BELLADONNA;
 	this->type = Organisms::BELLADONNA;
 	this->flag = Flag::ADULT;
 }

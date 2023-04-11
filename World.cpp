@@ -199,3 +199,11 @@ World::~World() {
 	}
 	delete[] this->grid;
 }
+
+Organism* World::getClosestInstanceByType(Point source, Organisms type) {
+	Organism* ptr = this->organisms.getHead();
+	while (ptr != nullptr) {
+		if (ptr) {}
+	}
+	return ptr;
+}

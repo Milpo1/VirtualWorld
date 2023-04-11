@@ -4,8 +4,8 @@
 Grass::Grass(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 0;
-	this->initiative = 0;
+	this->strength = (int)Strength::GRASS;
+	this->initiative = (int)Initiative::GRASS;
 	this->type = Organisms::GRASS;
 	this->flag = Flag::ADULT;
 }

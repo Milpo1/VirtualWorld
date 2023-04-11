@@ -3,8 +3,8 @@
 Guarana::Guarana(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
-	this->strength = 0;
-	this->initiative = 0;
+	this->strength = (int)Strength::GUARANA;
+	this->initiative = (int)Initiative::GUARANA;
 	this->type = Organisms::GUARANA;
 	this->flag = Flag::ADULT;
 }

@@ -21,7 +21,7 @@ int main() {
 			world.instanceCreate(Organisms::TURTLE, i, j);
 		}
 	}
-	for (int i = 5; i < 10; i++) {
+	for (int i = 5; i < 6; i++) {
 		for (int j = 9; j < 10; j++) {
 			world.instanceCreate(Organisms::SOW_THISTLE, i, j);
 		}
@@ -33,6 +33,7 @@ int main() {
 		while (c != 224) {
 			c = _getch();
 		}
+		c = _getch();
 		system("CLS");
 		world.makeTurn(c);
 		world.drawWorld();

@@ -10,6 +10,7 @@ World::World(int n, int m) {
 	this->n = n;
 	this->m = m;
 	this->turnCounter = 0;
+	this->input = 0;
 
 	this->grid = new Organism **[n];
 	for (int i = 0; i < n; i++) {

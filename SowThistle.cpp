@@ -17,7 +17,7 @@ void SowThistle::action() {
 		Point avaibleField = this->worldPtr->getAvaibleField(this->coords, FORBID_TAKEN_FIELDS);
 		if (this->worldPtr->isValid(avaibleField)) {
 			this->worldPtr->instanceCreate(this->type, avaibleField.getX(), avaibleField.getY(), Flag::NEWBORN);
-			std::cout << GROW_REPORT;
+			//std::cout << GROW_REPORT;
 		}
 		else return;
 	}

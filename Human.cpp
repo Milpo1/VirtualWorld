@@ -16,10 +16,10 @@ void Human::action() {
 	Point dest, vector;
 	switch (this->worldPtr->input) {
 	case KEY_UP:
-		vector = Point(0, 1);
+		vector = Point(0, -1);
 		break;
 	case KEY_DOWN:
-		vector = Point(0, -1);
+		vector = Point(0, 1);
 		break;
 	case KEY_LEFT:
 		vector = Point(-1, 0);

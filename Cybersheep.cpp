@@ -15,5 +15,36 @@ void Cybersheep::draw() {
 }
 
 void Cybersheep::action() {
-	this->worldPtr->getClosestInstanceByType(this->coords, Organisms::CYBER_SHEEP);
+	Point source = this->coords;
+	Point dest, vector;
+	Organism* instance = this->worldPtr->getClosestInstanceByType(this->coords, Organisms::SOSNOWSKY);
+	if (instance == nullptr) {
+		Animal::action();
+		return;
+	}
+	int difX = instance->getCoords().getX() - source.getX();
+	int difY = instance->getCoords().getY() - source.getY();
+	if (abs(difX) >= abs(difY)) {
+		vector = Point(1, 0) * sign(difX);
+	}
+	else {
+		vector = Point(0, 1) * sign(difY);
+	}
+	dest = source + vector;
+	Response response = this->worldPtr->moveInstance(source, dest);
+	switch (response) {
+	case Response::COLLISION:
+		this->worldPtr->collideInstances(source, dest);
+		break;
+	}
+}
+
+void Cybersheep::collision(Fight* fight) {
+	this->mating(fight);
+	Fight::Side side = fight->getSide(this);
+	Organism* enemy = fight->getEnemy(this);
+	if (enemy->getType() == Organisms::SOSNOWSKY) {
+		fight->setWinner(side);
+	}
+	fight->addStrenght(side, this->strength);
 }

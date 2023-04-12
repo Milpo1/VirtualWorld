@@ -6,5 +6,6 @@ public:
     Cybersheep(World* worldPtr, Point& coords);
     void draw() override;
     void action() override;
+    void collision(Fight* fight) override;
 };
 

@@ -52,16 +52,17 @@ void World::makeTurn(int c) {
 	Organism* ptr = this->organisms.getHead();
 	if (ptr == nullptr) return error(EMPTY_ORG_LIST);
 	while (ptr != nullptr) {
-		if (ptr->prev != nullptr) {
-			if (ptr->prev->flag == Flag::EMPTY) {
-				this->organisms.deleteNode(ptr->prev);
-			}
-		}
 		if (ptr->flag == Flag::NEWBORN) {
 			ptr->flag = Flag::ADULT;
 		}
 		else if (ptr->flag != Flag::EMPTY) ptr->action();
+		Organism* prev = ptr;
 		ptr = ptr->next;
+		if (prev != nullptr) {
+			if (prev->flag == Flag::EMPTY) {
+				this->organisms.deleteNode(prev);
+			}
+		}
 	}	
 }
 
@@ -205,18 +206,35 @@ World::~World() {
 	delete[] this->grid;
 }
 
+void World::saveGame() {
+	cout << "Name your save file: ";
+	char buffer[2*BUFFER_SIZE];
+	scanf_s("%s",buffer, 2 * BUFFER_SIZE-1);
+	sprintf_s(buffer, "%s.bin", buffer);
+}
+
+void World::loadGame() {
+	cout << "Load save named: ";
+	char buffer[2 * BUFFER_SIZE];
+	scanf_s("%s", buffer, 2 * BUFFER_SIZE - 1);
+	sprintf_s(buffer, "%s.bin", buffer);
+}
+
 Organism* World::getClosestInstanceByType(Point source, Organisms type) {
 	Organism* result = nullptr;
-	Organism* ptr = this->organisms.getHead();
+	Organism* ptr = this->organisms.getTail();
 	int destInitiative = getInitiativeByType(type);
 	int minDistance = this->n + this->m;
 	while (ptr != nullptr) {
 		if (ptr->getInitiative() > destInitiative) break;
-		if (ptr->getType() != type) continue;
-		int distance = pointDistance(ptr->getCoords(), source);
-		if (distance > minDistance) continue;
-		minDistance = distance;
-		result = ptr;
+		if (ptr->getType() == type) {
+			int distance = pointDistance(ptr->getCoords(), source);
+			if (distance < minDistance) {
+				minDistance = distance;
+				result = ptr;
+			}
+		}
+		ptr = ptr->prev;
 	}
 	return result;
 }

@@ -32,6 +32,7 @@ class OrganismList {
 public:
 	OrganismList();
 	Organism* getHead() const;
+	Organism* getTail() const;
 	void add(Organism* organism);
 	void deleteNode(Organism* organism);
 	void insertAtPrev(Organism* at, Organism* toBeInserted);

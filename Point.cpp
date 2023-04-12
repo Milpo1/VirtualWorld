@@ -64,3 +64,9 @@ int chooseRand(int a, int b) {
 int pointDistance(Point& a, Point& b) {
 	return abs(a.getX() - b.getX()) + abs(a.getY() - b.getY());
 }
+
+int sign(int a) {
+	if (a > 0) return 1;
+	if (a == 0) return 0;
+	return -1;
+}

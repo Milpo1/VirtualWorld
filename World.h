@@ -44,6 +44,8 @@ public:
 	// Other
 	void makeTurn(int c);
 	void drawWorld();
+	void saveGame();
+	void loadGame();
 	void setInstanceAt(Point point, Organism* organism);
 	Organism* getInstanceAt(Point point);
 	Organism* getClosestInstanceByType(Point source, Organisms type);

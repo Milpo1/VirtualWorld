@@ -29,6 +29,10 @@ void OrganismList::add(Organism* organism) {
 		this->head = organism;
 		return;
 	}
+	if (ptr->getInitiative() < organism->getInitiative()) {
+		this->insertAtPrev(ptr, organism);
+		return;
+	}
 	while (ptr->next != nullptr) {
 		if (ptr->next->getInitiative() < organism->getInitiative()) {
 			this->insertAtNext(ptr,organism);
@@ -55,6 +59,14 @@ OrganismList::~OrganismList() {
 
 Organism* OrganismList::getHead() const {
 	return this->head;
+}
+
+Organism* OrganismList::getTail() const {
+	Organism* ptr = this->head;
+	while (ptr->next != nullptr) {
+		ptr = ptr->next;
+	}
+	return ptr;
 }
 
 void OrganismList::deleteNode(Organism* organism)

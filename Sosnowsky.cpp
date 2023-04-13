@@ -22,13 +22,14 @@ void Sosnowsky::action() {
 		dest = this->coords + this->worldPtr->dirVectors[i];
 		Organism* instance = this->worldPtr->getInstanceAt(dest);
 		if (instance == nullptr) continue;
-		if (instance->getInitiative() != 0) continue;
+		if (instance->getInitiative() == 0) continue;
 		if (instance->getType() == Organisms::CYBER_SHEEP) continue;
 		instances[noOfInstances++] = instance;
 	}
 	for (int i = 0; i < noOfInstances; i++) {
 		this->worldPtr->killInstance(instances[i]);
 	}
+	this->sow();
 }
 
 void Sosnowsky::collision(Fight* fight) {

@@ -45,8 +45,15 @@ void World::setInstanceAt(Point point, Organism* organism)
 	this->grid[point.getX()][point.getY()] = organism;
 }
 
-void World::makeTurn(int c) {
+void World::setInput(int c) {
 	this->input = c;
+}
+
+int World::getInput() {
+	return this->input;
+}
+
+void World::makeTurn() {
 	this->turnCounter++;
 	if (this->grid == nullptr) return error(EMPTY_GRID_ERR);
 	Organism* ptr = this->organisms.getHead();

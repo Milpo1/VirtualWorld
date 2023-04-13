@@ -42,10 +42,12 @@ public:
 	// Setters
 
 	// Other
-	void makeTurn(int c);
+	void makeTurn();
 	void drawWorld();
 	void saveGame();
 	void loadGame();
+	void setInput(int c);
+	int getInput();
 	void setInstanceAt(Point point, Organism* organism);
 	Organism* getInstanceAt(Point point);
 	Organism* getClosestInstanceByType(Point source, Organisms type);

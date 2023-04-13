@@ -5,6 +5,7 @@ Human::Human(World* worldPtr, Point& coords)
 {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
+	this->specialPowerCooldown = 0;
 	this->strength = (int)Strength::HUMAN;
 	this->initiative = (int)Initiative::HUMAN;
 	this->type = Organisms::HUMAN;
@@ -12,6 +13,22 @@ Human::Human(World* worldPtr, Point& coords)
 }
 
 void Human::action() {
+	if (this->specialPowerCooldown > 0) this->specialPowerCooldown--;
+	else if (this->worldPtr->input == ' ') {
+		this->specialPowerCooldown = 5;
+		Organism* instances[NO_DIR_VECTORS];
+		Point dest;
+		int noOfInstances = 0;
+		for (int i = 0; i < NO_DIR_VECTORS; i++) {
+			dest = this->coords + this->worldPtr->dirVectors[i];
+			Organism* instance = this->worldPtr->getInstanceAt(dest);
+			if (instance == nullptr) continue;
+			instances[noOfInstances++] = instance;
+		}
+		for (int i = 0; i < noOfInstances; i++) {
+			this->worldPtr->killInstance(instances[i]);
+		}
+	}
 	Point source = this->coords;
 	Point dest, vector;
 	switch (this->worldPtr->input) {
@@ -37,6 +54,12 @@ void Human::action() {
 		this->worldPtr->collideInstances(source, dest);
 		break;
 	}
+}
+
+void Human::collision(Fight* fight) {
+	this->mating(fight);
+	Fight::Side side = fight->getSide(this);
+	fight->addStrenght(side, this->strength);
 }
 
 void Human::draw()

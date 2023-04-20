@@ -1,5 +1,8 @@
 #pragma once
 #include "Organism.h"
+///Out of 100
+#define SOW_CHANCE 10
+
 class Plant :
     public Organism {
 public:

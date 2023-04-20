@@ -1,4 +1,10 @@
 #pragma once
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <conio.h>
+#include <windows.h>
+#include <fstream>
 
 #include "Human.h"
 #include "Wolf.h"
@@ -25,6 +31,13 @@
 #define KEY_DOWN 80
 #define KEY_LEFT 75
 #define KEY_RIGHT 77
+
+#define REPORT_DRAW_X 0
+#define REPORT_DRAW_Y 2
+#define WORLD_DRAW_X 35
+#define WORLD_DRAW_Y 3
+
+#define MAX_PROB 100
 
 typedef Organism*** Grid;
 class World {

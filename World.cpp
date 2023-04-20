@@ -1,11 +1,19 @@
 #include "World.h"
-#include <iostream>
 using namespace std;
 
 void error(const char* message) {
 	cout << "ERROR: " << message << endl;
 }
+void gotoxy(int a, int b)
+{
+	COORD coordinates;
+	coordinates.X = a;
+	coordinates.Y = b; 
 
+	SetConsoleCursorPosition(
+		GetStdHandle(STD_OUTPUT_HANDLE), coordinates);
+
+}
 World::World(int n, int m) {
 	this->n = n;
 	this->m = m;
@@ -54,6 +62,15 @@ int World::getInput() {
 }
 
 void World::makeTurn() {
+	gotoxy(REPORT_DRAW_X, REPORT_DRAW_Y);
+	for (int j = 0; j < this->m;j ++) {
+		for (int i = 0; i < WORLD_DRAW_X; i++)
+		{
+			cout << ' ';
+		}
+		cout << endl;
+	}
+	gotoxy(REPORT_DRAW_X, REPORT_DRAW_Y);
 	this->turnCounter++;
 	if (this->grid == nullptr) return error(EMPTY_GRID_ERR);
 	Organism* ptr = this->organisms.getHead();
@@ -75,11 +92,12 @@ void World::makeTurn() {
 
 void World::drawWorld() {
 	if (this->grid == nullptr) return error(EMPTY_GRID_ERR);
-	cout << endl;
-	cout << "Turn " << this->turnCounter << endl;
+	gotoxy(WORLD_DRAW_X,WORLD_DRAW_Y);
+	cout << "Turn " << this->turnCounter;
+	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + 1);
 	for (int i = 0; i < this->n + 2; i++) cout << HOR_BORDER;
-	cout << endl;
 	for (int i = 0; i < this->m; i++) {
+		gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + 2 + i);
 		cout << VER_BORDER;
 		for (int j = 0; j < this->n; j++) {
 			Organism* instance = this->grid[j][i];
@@ -90,10 +108,10 @@ void World::drawWorld() {
 			instance->draw();
 		}
 		cout << VER_BORDER;
-		cout << endl;
 	}
+	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + m + 2);
 	for (int i = 0; i < this->n + 2; i++) cout << HOR_BORDER;
-	cout << endl;
+	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + 3 + this->m);
 }
 
 Point World::getAvaibleField(Point& source, bool allowTaken) {
@@ -218,6 +236,7 @@ void World::saveGame() {
 	char buffer[2*BUFFER_SIZE];
 	scanf_s("%s",buffer, 2 * BUFFER_SIZE-1);
 	sprintf_s(buffer, "%s.bin", buffer);
+
 }
 
 void World::loadGame() {
@@ -225,6 +244,10 @@ void World::loadGame() {
 	char buffer[2 * BUFFER_SIZE];
 	scanf_s("%s", buffer, 2 * BUFFER_SIZE - 1);
 	sprintf_s(buffer, "%s.bin", buffer);
+	ofstream file;
+	file.open(buffer, ios::app);
+
+	file.close();
 }
 
 Organism* World::getClosestInstanceByType(Point source, Organisms type) {

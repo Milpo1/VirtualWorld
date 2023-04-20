@@ -1,31 +1,25 @@
-#include <iostream>
-#include <stdlib.h>
-#include <conio.h>
 #include "World.h"
 
 using namespace std;
 
+void spray(World* world, Organisms type, int x, int y, int radius, int glitter = 1) {
+	for (int i = x - radius; i <= x + radius; i+=glitter) {
+		for (int j = y - radius; j <= y + radius; j+=glitter) {
+			world->instanceCreate(type, i, j);
+		}
+	}
+}
 
 int main() {
 	srand((unsigned)time(NULL));
-	World world(75,40);
-	world.instanceCreate(Organisms::HUMAN, 15, 20);
-	for (int i = 2; i < 8; i++) {
-		for (int j = 4; j < 5; j++) {
-			world.instanceCreate(Organisms::TURTLE, i, j);
-		}
-	}
-	for (int i = 2; i < 10; i+=2) {
-		for (int j = 2; j < 3; j++) {
-			//world.instanceCreate(Organisms::FOX, i, j);
-		}
-	for (int i = 5; i < 6; i++) {
-	}
-		for (int j = 9; j < 10; j++) {
-			//world.instanceCreate(Organisms::SOSNOWSKY, i, j);
-		}
-	}
-	world.instanceCreate(Organisms::CYBER_SHEEP, 10, 9);
+	World world(50,50);
+	world.instanceCreate(Organisms::HUMAN, 10, 9);
+	
+	spray(&world, Organisms::ANTELOPE, 4, 4, 1);
+	spray(&world, Organisms::WOLF, 12, 12, 1);
+	spray(&world, Organisms::SHEEP, 22, 22, 1);
+	spray(&world, Organisms::GRASS, 12, 20, 2);
+
 	world.drawWorld();
 
 	int c = _getch();
@@ -38,7 +32,7 @@ int main() {
 		}
 		if (c != 32) c = _getch();
 		world.setInput(c);
-		system("CLS");
+		//system("CLS");
 		world.makeTurn();
 		world.drawWorld();
 		c = 0;

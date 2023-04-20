@@ -62,9 +62,9 @@ int getInitiativeByType(Organisms type);
 /// Text pack
 #define EMPTY_GRID_ERR "Empty grid pointer"
 #define EMPTY_ORG_LIST "Empty organism list"
-#define MOVE_REPORT '\t' << getNameByType(instanceAtSource->getType()) << " moved from " << source << " to " << dest
-#define KILL_REPORT '\t' << getNameByType(this->getType()) << " " << this->coords << " gets killed!"
-#define EAT_REPORT '\t' << getNameByType(this->getType()) << " " << this->coords << " gets eaten!"
-#define ATTACK_REPORT '\t' << getNameByType(instanceAtSource->getType()) << " " << source << " colllides " << getNameByType(instanceAtDest->getType()) << " " << dest << "!\n"
-#define MATING_REPORT '\t' << getNameByType(this->type) << " " << avaibleField << " was born!"
-#define GROW_REPORT '\t' << getNameByType(this->type) << " " << avaibleField << " has grown!"
+#define MOVE_REPORT '\t' << getNameByType(instanceAtSource->getType()) << " moved from " << source << " to " << dest << std::endl
+#define KILL_REPORT '\t' << getNameByType(this->getType()) << " " << this->coords << " gets killed!" << std::endl
+#define EAT_REPORT '\t' << getNameByType(this->getType()) << " " << this->coords << " gets eaten!" << std::endl
+#define ATTACK_REPORT '\t' << getNameByType(instanceAtSource->getType()) << " " << source << " colllides " << getNameByType(instanceAtDest->getType()) << " " << dest << "!\n" << std::endl
+#define MATING_REPORT '\t' << getNameByType(this->type) << " " << avaibleField << " was born!" << std::endl
+#define GROW_REPORT '\t' << getNameByType(this->type) << " " << avaibleField << " has grown!" << std::endl

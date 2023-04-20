@@ -1,7 +1,9 @@
 #include "Plant.h"
 #include "World.h"
 void Plant::action() {
-	this->sow();
+	if (rand() % MAX_PROB < SOW_CHANCE) {
+		this->sow();
+	}
 }
 
 void Plant::collision(Fight* fight) {

@@ -18,21 +18,23 @@ void Animal::collision(Fight* fight) {
 }
 
 void Animal::mating(Fight* fight) {
-	if (this->type == fight->getEnemy(this)->getType()) {
-		if (fight->getWinnerSide() == Fight::TIE) {
-			Point avaibleField = this->worldPtr->getAvaibleField(this->coords, FORBID_TAKEN_FIELDS);
-			if (!this->worldPtr->isValid(avaibleField)) {
-				avaibleField = this->worldPtr->getAvaibleField(fight->getEnemy(this)->getCoords(), false);
+	if (rand() % MAX_PROB < MATING_CHANCE) {
+		if (this->type == fight->getEnemy(this)->getType()) {
+			if (fight->getWinnerSide() == Fight::TIE) {
+				Point avaibleField = this->worldPtr->getAvaibleField(this->coords, FORBID_TAKEN_FIELDS);
 				if (!this->worldPtr->isValid(avaibleField)) {
-					return;
+					avaibleField = this->worldPtr->getAvaibleField(fight->getEnemy(this)->getCoords(), false);
+					if (!this->worldPtr->isValid(avaibleField)) {
+						return;
+					}
 				}
+				Organism* newBorn = this->worldPtr->instanceCreate(this->type, avaibleField.getX(), avaibleField.getY(), Flag::NEWBORN);
+				std::cout << MATING_REPORT;
+				return;
 			}
-			Organism* newBorn = this->worldPtr->instanceCreate(this->type, avaibleField.getX(), avaibleField.getY(), Flag::NEWBORN);
-			std::cout << MATING_REPORT;
+			fight->setWinner(Fight::TIE);
 			return;
 		}
-		fight->setWinner(Fight::TIE);
-		return;
 	}
 }
 

@@ -27,6 +27,7 @@
 #define ALLOW_TAKEN_FIELDS true
 #define FORBID_TAKEN_FIELDS false
 
+#define SPECIALPOWER_COOLDOWN 5
 #define KEY_UP 72
 #define KEY_DOWN 80
 #define KEY_LEFT 75
@@ -46,6 +47,7 @@ class World {
 	OrganismList organisms;
 	Grid grid;
 public:
+	int specialPowerCooldown;
 	int input;
 	Point* dirVectors;
 	World(int n, int m);

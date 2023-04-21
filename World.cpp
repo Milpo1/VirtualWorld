@@ -19,7 +19,7 @@ World::World(int n, int m) {
 	this->m = m;
 	this->turnCounter = 0;
 	this->input = 0;
-
+	this->specialPowerCooldown = 0;
 	this->grid = new Organism **[n];
 	for (int i = 0; i < n; i++) {
 		this->grid[i] = new Organism * [m];
@@ -93,6 +93,8 @@ void World::makeTurn() {
 void World::drawWorld() {
 	if (this->grid == nullptr) return error(EMPTY_GRID_ERR);
 	gotoxy(WORLD_DRAW_X,WORLD_DRAW_Y);
+	for (int i = 0; i < this->n + 2; i++) cout << ' ';
+	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y);
 	cout << "Turn " << this->turnCounter;
 	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + 1);
 	for (int i = 0; i < this->n + 2; i++) cout << HOR_BORDER;
@@ -109,9 +111,12 @@ void World::drawWorld() {
 		}
 		cout << VER_BORDER;
 	}
-	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + m + 2);
+	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + this->m + 2);
 	for (int i = 0; i < this->n + 2; i++) cout << HOR_BORDER;
 	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + 3 + this->m);
+	for (int i = 0; i < this->n + 2; i++) cout << ' ';
+	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + 3 + this->m);
+
 }
 
 Point World::getAvaibleField(Point& source, bool allowTaken) {
@@ -245,19 +250,37 @@ void World::saveGame() {
 	file.write((char*)&this->organisms.size, sizeof(int));
 	Organism* ptr = this->organisms.getHead();
 	while (ptr != nullptr) {
-		file.write((char*)ptr, sizeof(Organism));
+		//file.write((char*)ptr, sizeof(Organism));
+		file.write((char*)&ptr->type, sizeof(Organisms));
+		file.write((char*)&ptr->coords, sizeof(Point));
+		file.write((char*)&ptr->flag, sizeof(Flag));
+		file.write((char*)&ptr->strength, sizeof(int));
+		file.write((char*)&ptr->initiative, sizeof(int));
+		if (ptr->type == Organisms::HUMAN) {
+
+		}
 		ptr = ptr->next;
 	}
 
 	file.close();
+	this->drawWorld();
 }
 
 void World::loadGame() {
+	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + 3 + this->m); 
 	cout << "Load save named: ";
 	char buffer[2 * BUFFER_SIZE];
 	scanf_s("%s", buffer, 2 * BUFFER_SIZE - 1);
 	sprintf_s(buffer, "%s.bin", buffer);
 	ifstream file;
+	file.open(buffer, ios::in);
+	if (!file.good()) {
+		gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + 3 + this->m);
+		cout << " Error: Save doesnt file exist!";
+		file.close();
+		return;
+	}
+
 	for (int i = 0; i < this->n; i++) {
 		delete[] this->grid[i];
 	}
@@ -265,11 +288,6 @@ void World::loadGame() {
 
 	this->organisms.empty();
 	
-	file.open(buffer, ios::in);
-	if (!file.good()) {
-		file.close();
-		return;
-	}
 	file.read((char*)&this->n, sizeof(int));
 	file.read((char*)&this->m, sizeof(int));
 	file.read((char*)&this->turnCounter, sizeof(int));
@@ -284,13 +302,16 @@ void World::loadGame() {
 	Point dummyPoint;
 	int size = this->organisms.size;
 	for (int i = 0; i < size; i++) {
-		Organism* readOrganism = new Antelope(this,dummyPoint);
-		file.read((char*)readOrganism, sizeof(Organism));
-		readOrganism->worldPtr = this;
-		this->organisms.add(readOrganism);
-		this->setInstanceAt(readOrganism->coords, readOrganism);
+		Organisms type;
+		file.read((char*)&type, sizeof(Organisms));
+		Point coords;
+		file.read((char*)&coords, sizeof(Point));
+		Flag flag;
+		file.read((char*)&flag, sizeof(Flag));
+		Organism* organism = instanceCreate(type, coords.getX(), coords.getY(), flag);
+		file.read((char*)&organism->strength, sizeof(int));
+		file.read((char*)&organism->initiative, sizeof(int));
 	}
-	this->organisms.size = size;
 
 	file.close();
 	this->drawWorld();

@@ -15,7 +15,7 @@ Human::Human(World* worldPtr, Point& coords)
 void Human::action() {
 	if (this->specialPowerCooldown > 0) this->specialPowerCooldown--;
 	else if (this->worldPtr->input == ' ') {
-		this->specialPowerCooldown = 5;
+		this->worldPtr->specialPowerCooldown = SPECIALPOWER_COOLDOWN;
 		Organism* instances[NO_DIR_VECTORS];
 		Point dest;
 		int noOfInstances = 0;

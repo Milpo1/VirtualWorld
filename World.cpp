@@ -244,21 +244,30 @@ void World::saveGame() {
 	sprintf_s(buffer, "%s.bin", buffer);
 	fstream file;
 	file.open(buffer, fstream::out);
-	file.write((char*)&this->n, sizeof(int));
-	file.write((char*)&this->m, sizeof(int));
-	file.write((char*)&this->turnCounter, sizeof(int));
-	file.write((char*)&this->organisms.size, sizeof(int));
+	file << this->n << " " << this->m << " " << this->turnCounter << " " << this->organisms.size << endl;
+	//file.write((char*)&this->n, sizeof(int));
+	//file.write((char*)&this->m, sizeof(int));
+	//file.write((char*)&this->turnCounter, sizeof(int));
+	//file.write((char*)&this->organisms.size, sizeof(int));
 	Organism* ptr = this->organisms.getHead();
 	while (ptr != nullptr) {
+		int x = ptr->coords.getX(), y = ptr->coords.getY();
+		file << (int)ptr->type << " " << x << " " << y << " " << (int)ptr->flag << " " << ptr->strength << " " << ptr->initiative;
+		if (ptr->type == Organisms::HUMAN) {
+			file << " " << this->specialPowerCooldown;
+		}
+		file << endl;
 		//file.write((char*)ptr, sizeof(Organism));
-		file.write((char*)&ptr->type, sizeof(Organisms));
-		file.write((char*)&ptr->coords, sizeof(Point));
+		/*file.write((char*)&ptr->type, sizeof(Organisms));
+		int x = ptr->coords.getX(), y = ptr->coords.getY();
+		file.write((char*)&x, sizeof(int));
+		file.write((char*)&y, sizeof(int));
 		file.write((char*)&ptr->flag, sizeof(Flag));
 		file.write((char*)&ptr->strength, sizeof(int));
 		file.write((char*)&ptr->initiative, sizeof(int));
 		if (ptr->type == Organisms::HUMAN) {
-
-		}
+			file.write((char*)&this->specialPowerCooldown, sizeof(int));
+		}*/
 		ptr = ptr->next;
 	}
 
@@ -276,7 +285,7 @@ void World::loadGame() {
 	file.open(buffer, ios::in);
 	if (!file.good()) {
 		gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y + 3 + this->m);
-		cout << " Error: Save doesnt file exist!";
+		cout << " Error: Save file doesnt exist!";
 		file.close();
 		return;
 	}
@@ -288,11 +297,11 @@ void World::loadGame() {
 
 	this->organisms.empty();
 	
-	file.read((char*)&this->n, sizeof(int));
+	/*file.read((char*)&this->n, sizeof(int));
 	file.read((char*)&this->m, sizeof(int));
 	file.read((char*)&this->turnCounter, sizeof(int));
-	file.read((char*)&this->organisms.size, sizeof(int));
-
+	file.read((char*)&this->organisms.size, sizeof(int));*/
+	file >> this->n >> this->m >> this->turnCounter >> this->organisms.size;
 	this->grid = new Organism * *[n];
 	for (int i = 0; i < n; i++) {
 		this->grid[i] = new Organism * [m];
@@ -302,16 +311,21 @@ void World::loadGame() {
 	Point dummyPoint;
 	int size = this->organisms.size;
 	for (int i = 0; i < size; i++) {
-		Organisms type;
-		file.read((char*)&type, sizeof(Organisms));
-		Point coords;
-		file.read((char*)&coords, sizeof(Point));
-		Flag flag;
-		file.read((char*)&flag, sizeof(Flag));
-		Organism* organism = instanceCreate(type, coords.getX(), coords.getY(), flag);
-		file.read((char*)&organism->strength, sizeof(int));
-		file.read((char*)&organism->initiative, sizeof(int));
+		int type, x, y, flag, strength, initiative;
+		file >> type >> x >> y >> flag >> strength >> initiative;
+		/*file.read((char*)&type, sizeof(Organisms));
+		file.read((char*)&x, sizeof(int));
+		file.read((char*)&y, sizeof(int));
+		file.read((char*)&flag, sizeof(Flag));*/
+		Organism* organism = instanceCreate((Organisms)type, x, y, (Flag)flag);
+		//file.read((char*)&organism->strength, sizeof(int));
+		//file.read((char*)&organism->initiative, sizeof(int));
+		if ((Organisms)type == Organisms::HUMAN) {
+			file >> this->specialPowerCooldown;
+			//file.read((char*)&this->specialPowerCooldown, sizeof(int));
+		}
 	}
+	this->organisms.size = size;
 
 	file.close();
 	this->drawWorld();

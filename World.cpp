@@ -266,6 +266,10 @@ void World::loadGame() {
 	this->organisms.empty();
 	
 	file.open(buffer, ios::in);
+	if (!file.good()) {
+		file.close();
+		return;
+	}
 	file.read((char*)&this->n, sizeof(int));
 	file.read((char*)&this->m, sizeof(int));
 	file.read((char*)&this->turnCounter, sizeof(int));
@@ -278,14 +282,18 @@ void World::loadGame() {
 	}
 
 	Point dummyPoint;
-	Organism* readOrganism = new Human(this, dummyPoint);
-	for (int i = 0; i < this->organisms.size; i++) {
-		file.read((char*)readOrganism, sizeof(Human));
-
+	int size = this->organisms.size;
+	for (int i = 0; i < size; i++) {
+		Organism* readOrganism = new Antelope(this,dummyPoint);
+		file.read((char*)readOrganism, sizeof(Organism));
+		readOrganism->worldPtr = this;
 		this->organisms.add(readOrganism);
+		this->setInstanceAt(readOrganism->coords, readOrganism);
 	}
+	this->organisms.size = size;
 
 	file.close();
+	this->drawWorld();
 }
 
 Organism* World::getClosestInstanceByType(Point source, Organisms type) {

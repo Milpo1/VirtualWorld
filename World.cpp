@@ -133,6 +133,7 @@ Point World::getAvaibleField(Point& source, bool allowTaken) {
 
 Organism* World::instanceCreate(Organisms type, int x, int y, Flag flag) {
 	Point point(x, y);
+	if (!this->isValid(point)) return nullptr;
 	Organism* ptr = nullptr;
 	switch (type) {
 	case Organisms::HUMAN:
@@ -236,7 +237,19 @@ void World::saveGame() {
 	char buffer[2*BUFFER_SIZE];
 	scanf_s("%s",buffer, 2 * BUFFER_SIZE-1);
 	sprintf_s(buffer, "%s.bin", buffer);
+	fstream file;
+	file.open(buffer, fstream::out);
+	file.write((char*)&this->n, sizeof(int));
+	file.write((char*)&this->m, sizeof(int));
+	file.write((char*)&this->turnCounter, sizeof(int));
+	file.write((char*)&this->organisms.size, sizeof(int));
+	Organism* ptr = this->organisms.getHead();
+	while (ptr != nullptr) {
+		file.write((char*)ptr, sizeof(Organism));
+		ptr = ptr->next;
+	}
 
+	file.close();
 }
 
 void World::loadGame() {
@@ -244,8 +257,33 @@ void World::loadGame() {
 	char buffer[2 * BUFFER_SIZE];
 	scanf_s("%s", buffer, 2 * BUFFER_SIZE - 1);
 	sprintf_s(buffer, "%s.bin", buffer);
-	ofstream file;
-	file.open(buffer, ios::app);
+	ifstream file;
+	for (int i = 0; i < this->n; i++) {
+		delete[] this->grid[i];
+	}
+	delete[] this->grid;
+
+	this->organisms.empty();
+	
+	file.open(buffer, ios::in);
+	file.read((char*)&this->n, sizeof(int));
+	file.read((char*)&this->m, sizeof(int));
+	file.read((char*)&this->turnCounter, sizeof(int));
+	file.read((char*)&this->organisms.size, sizeof(int));
+
+	this->grid = new Organism * *[n];
+	for (int i = 0; i < n; i++) {
+		this->grid[i] = new Organism * [m];
+		for (int j = 0; j < m; j++) this->grid[i][j] = nullptr;
+	}
+
+	Point dummyPoint;
+	Organism* readOrganism = new Human(this, dummyPoint);
+	for (int i = 0; i < this->organisms.size; i++) {
+		file.read((char*)readOrganism, sizeof(Human));
+
+		this->organisms.add(readOrganism);
+	}
 
 	file.close();
 }

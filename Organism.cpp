@@ -27,6 +27,7 @@ void OrganismList::add(Organism* organism) {
 	Organism* ptr = this->head;
 	if (ptr == nullptr) {
 		this->head = organism;
+		size++;
 		return;
 	}
 	if (ptr->getInitiative() < organism->getInitiative()) {
@@ -42,9 +43,11 @@ void OrganismList::add(Organism* organism) {
 	}
 	ptr->next = organism;
 	ptr->next->prev = ptr;
+	this->size++;
 }
 
 OrganismList::OrganismList() {
+	this->size = 0;
 	this->head = nullptr;
 }
 
@@ -69,6 +72,16 @@ Organism* OrganismList::getTail() const {
 	return ptr;
 }
 
+void OrganismList::empty(){
+	Organism* ptr = this->head, * nextPtr = nullptr;
+	while (ptr != nullptr) {
+		nextPtr = ptr->next;
+		delete ptr;
+		ptr = nextPtr;
+	}
+	this->head = nullptr;
+}
+
 void OrganismList::deleteNode(Organism* organism)
 {
 	if (this->head == organism) {
@@ -78,6 +91,7 @@ void OrganismList::deleteNode(Organism* organism)
 	if (organism->next != nullptr) organism->next->prev = organism->prev;
 	if (organism->prev != nullptr) organism->prev->next = organism->next;
 	delete organism;
+	this->size--;
 }
 
 void OrganismList::insertAtPrev(Organism* at, Organism* toBeInserted) {
@@ -88,12 +102,14 @@ void OrganismList::insertAtPrev(Organism* at, Organism* toBeInserted) {
 		at->prev = toBeInserted;
 		this->head = toBeInserted;
 		toBeInserted->next = at;
+		size++;
 		return;
 	}
 	toBeInserted->prev = at->prev;
 	toBeInserted->next = at;
 	at->prev->next = toBeInserted;
 	at->prev = toBeInserted;
+	this->size++;
 }
 void OrganismList::insertAtNext(Organism* at, Organism* toBeInserted) {
 	if (at == nullptr || toBeInserted == nullptr) return;
@@ -102,12 +118,14 @@ void OrganismList::insertAtNext(Organism* at, Organism* toBeInserted) {
 	if (at->next == nullptr) {
 		at->next = toBeInserted;
 		toBeInserted->prev = at;
+		size++;
 		return;
 	}
 	toBeInserted->next = at->next;
 	toBeInserted->prev = at;
 	at->next->prev = toBeInserted;
 	at->next = toBeInserted;
+	this->size++;
 }
 
 Fight::Fight(Organism* attacker, Organism* victim) {

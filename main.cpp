@@ -12,8 +12,8 @@ void spray(World* world, Organisms type, int x, int y, int radius, int glitter =
 
 int main() {
 	srand((unsigned)time(NULL));
-	World world(50,50);
-	world.instanceCreate(Organisms::HUMAN, 10, 9);
+	World world(50,20);
+	//world.instanceCreate(Organisms::HUMAN, 10, 9);
 	
 	spray(&world, Organisms::ANTELOPE, 4, 4, 1);
 	spray(&world, Organisms::WOLF, 12, 12, 1);

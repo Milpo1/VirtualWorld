@@ -30,9 +30,11 @@ public:
 class OrganismList {
 	Organism* head;
 public:
+	int size;
 	OrganismList();
 	Organism* getHead() const;
 	Organism* getTail() const;
+	void empty();
 	void add(Organism* organism);
 	void deleteNode(Organism* organism);
 	void insertAtPrev(Organism* at, Organism* toBeInserted);

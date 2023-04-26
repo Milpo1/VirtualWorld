@@ -34,9 +34,10 @@
 #define KEY_RIGHT 77
 
 #define REPORT_DRAW_X 0
-#define REPORT_DRAW_Y 2
+#define REPORT_DRAW_Y 0
 #define WORLD_DRAW_X 35
 #define WORLD_DRAW_Y 3
+#define CONSOLE_REPORT_H 30
 
 #define MAX_PROB 100
 

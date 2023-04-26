@@ -63,7 +63,7 @@ int World::getInput() {
 
 void World::makeTurn() {
 	gotoxy(REPORT_DRAW_X, REPORT_DRAW_Y);
-	for (int j = 0; j < this->m;j ++) {
+	for (int j = 0; j < CONSOLE_REPORT_H-REPORT_DRAW_Y;j ++) {
 		for (int i = 0; i < WORLD_DRAW_X; i++)
 		{
 			cout << ' ';
@@ -92,7 +92,9 @@ void World::makeTurn() {
 
 void World::drawWorld() {
 	if (this->grid == nullptr) return error(EMPTY_GRID_ERR);
-	gotoxy(WORLD_DRAW_X,WORLD_DRAW_Y);
+	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y-1);
+	cout << "Virtual world                   Milosz Poruba 193400";
+	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y);
 	for (int i = 0; i < this->n + 2; i++) cout << ' ';
 	gotoxy(WORLD_DRAW_X, WORLD_DRAW_Y);
 	cout << "Turn " << this->turnCounter;
@@ -302,6 +304,14 @@ void World::loadGame() {
 	this->organisms.size = size;
 
 	file.close();
+	gotoxy(REPORT_DRAW_X, REPORT_DRAW_Y);
+	for (int j = 0; j < CONSOLE_REPORT_H - REPORT_DRAW_Y; j++) {
+		for (int i = 0; i < WORLD_DRAW_X; i++)
+		{
+			cout << ' ';
+		}
+		cout << endl;
+	}
 	this->drawWorld();
 }
 

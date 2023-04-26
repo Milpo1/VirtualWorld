@@ -3,6 +3,8 @@
 using namespace std;
 
 void spray(World* world, Organisms type, int x, int y, int radius, int glitter = 1) {
+	x += intRandRange(-1, 1);
+	y += intRandRange(-1, 1);
 	for (int i = x - radius; i <= x + radius; i+=glitter) {
 		for (int j = y - radius; j <= y + radius; j+=glitter) {
 			world->instanceCreate(type, i, j);
@@ -20,6 +22,12 @@ int main() {
 	spray(&world, Organisms::SHEEP, 22, 22, 1);
 	spray(&world, Organisms::GRASS, 12, 20, 2);
 	spray(&world, Organisms::SOSNOWSKY, 30, 15, 1);
+	spray(&world, Organisms::FOX, 8, 8, 1);
+	spray(&world, Organisms::TURTLE, 10, 12, 1);
+	spray(&world, Organisms::CYBER_SHEEP, 18, 18, 1);
+	spray(&world, Organisms::SOW_THISTLE, 35, 8, 0);
+	spray(&world, Organisms::GUARANA, 30, 19, 1);
+	spray(&world, Organisms::BELLADONNA, 25, 9, 0);
 
 	world.drawWorld();
 

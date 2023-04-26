@@ -14,11 +14,6 @@ void SowThistle::draw() {
 }
 void SowThistle::action() {
 	for (int i = 0; i < 3; i++) {
-		Point avaibleField = this->worldPtr->getAvaibleField(this->coords, FORBID_TAKEN_FIELDS);
-		if (this->worldPtr->isValid(avaibleField)) {
-			this->worldPtr->instanceCreate(this->type, avaibleField.getX(), avaibleField.getY(), Flag::NEWBORN);
-			std::cout << GROW_REPORT;
-		}
-		else return;
+		this->sow();
 	}
 }

@@ -1,6 +1,6 @@
 #include "Human.h"
 #include "World.h"
-
+#include <iostream>
 Human::Human(World* worldPtr, Point& coords)
 {
 	this->worldPtr = worldPtr;
@@ -13,8 +13,12 @@ Human::Human(World* worldPtr, Point& coords)
 }
 
 void Human::action() {
-	if (this->specialPowerCooldown > 0) this->specialPowerCooldown--;
+	if (this->worldPtr->specialPowerCooldown > 0) {
+		std::cout << HUMAN_POWER_REPORT;
+		this->worldPtr->specialPowerCooldown--;
+	}
 	else if (this->worldPtr->input == ' ') {
+		std::cout << HUMAN_POWER_ACTIVATE;
 		this->worldPtr->specialPowerCooldown = SPECIALPOWER_COOLDOWN;
 		Organism* instances[NO_DIR_VECTORS];
 		Point dest;

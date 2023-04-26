@@ -8,7 +8,7 @@ enum class Organisms : char {
 	ANTELOPE = 'L',
 	CYBER_SHEEP = '0',
 	GRASS = '\"',
-	SOW_THISTLE = '%',
+	SOW_THISTLE = '^',
 	GUARANA = '*',
 	BELLADONNA = '$',
 	SOSNOWSKY = '#'
@@ -68,3 +68,5 @@ int getInitiativeByType(Organisms type);
 #define ATTACK_REPORT ' ' << getNameByType(instanceAtSource->getType()) << " " << source << " colllides " << getNameByType(instanceAtDest->getType()) << " " << dest << "!\n" << std::endl
 #define MATING_REPORT ' ' << getNameByType(this->type) << " " << avaibleField << " was born!" << std::endl
 #define GROW_REPORT ' ' << getNameByType(this->type) << " " << avaibleField << " has grown!" << std::endl
+#define HUMAN_POWER_REPORT "Power cooldown: " << this->worldPtr->specialPowerCooldown << " turns left!" << std::endl
+#define HUMAN_POWER_ACTIVATE "Human activated purification!" << std::endl

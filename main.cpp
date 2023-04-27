@@ -21,7 +21,7 @@ int main() {
 	spray(&world, Organisms::WOLF, 12, 12, 1);
 	spray(&world, Organisms::SHEEP, 22, 22, 1);
 	spray(&world, Organisms::GRASS, 12, 20, 2);
-	spray(&world, Organisms::SOSNOWSKY, 30, 15, 1);
+	spray(&world, Organisms::SOSNOWSKY, 30, 15, 2);
 	spray(&world, Organisms::FOX, 8, 8, 1);
 	spray(&world, Organisms::TURTLE, 10, 12, 1);
 	spray(&world, Organisms::CYBER_SHEEP, 18, 18, 1);

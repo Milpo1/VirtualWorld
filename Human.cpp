@@ -13,13 +13,13 @@ Human::Human(World* worldPtr, Point& coords)
 }
 
 void Human::action() {
-	if (this->worldPtr->specialPowerCooldown > 0) {
-		std::cout << HUMAN_POWER_REPORT;
-		this->worldPtr->specialPowerCooldown--;
-	}
-	else if (this->worldPtr->input == ' ') {
+	if (this->worldPtr->specialPowerCooldown == 0 && this->worldPtr->input == ' ') {
 		std::cout << HUMAN_POWER_ACTIVATE;
 		this->worldPtr->specialPowerCooldown = SPECIALPOWER_COOLDOWN;
+
+	}
+	if (this->worldPtr->specialPowerCooldown > SPECIALPOWER_THRESHOLD) {
+		std::cout << HUMAN_POWER_REPORT;
 		Organism* instances[NO_DIR_VECTORS];
 		Point dest;
 		int noOfInstances = 0;
@@ -33,6 +33,7 @@ void Human::action() {
 			this->worldPtr->killInstance(instances[i]);
 		}
 	}
+	if (this->worldPtr->specialPowerCooldown > 0) this->worldPtr->specialPowerCooldown--;
 	Point source = this->coords;
 	Point dest, vector;
 	switch (this->worldPtr->input) {

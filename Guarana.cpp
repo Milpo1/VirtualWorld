@@ -1,5 +1,6 @@
 #include "Guarana.h"
 #include "World.h"
+#define GUARANA_BONUS 3
 Guarana::Guarana(World* worldPtr, Point& coords) {
 	this->worldPtr = worldPtr;
 	this->coords = coords;
@@ -12,7 +13,8 @@ Guarana::Guarana(World* worldPtr, Point& coords) {
 void Guarana::draw() {
 	std::cout << (char)this->type;
 }
+
 void Guarana::collision(Fight* fight) {
 	Organism* enemy = fight->getEnemy(this);
-	enemy->setStrength(enemy->getStrength() + 3);
+	enemy->setStrength(enemy->getStrength() + GUARANA_BONUS);
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Organism.h"
 ///Out of 100
-#define MATING_CHANCE 20
+#define MATING_CHANCE 30
 class Animal :
     public Organism {
 public:
